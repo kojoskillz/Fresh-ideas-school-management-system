@@ -41,6 +41,9 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-geist-sans: "Geist", sans-serif;
+  --font-geist-mono: "Geist Mono", monospace;
+  --font-inter: "Inter", sans-serif;
 }
 
 :root {
@@ -52,8 +55,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
+  --primary-foreground: #ebebeb;
+  --secondary: #019FF8;
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);

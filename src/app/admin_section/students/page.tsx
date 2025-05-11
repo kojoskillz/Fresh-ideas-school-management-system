@@ -222,7 +222,7 @@ export default function TeachersPage() {
   );
 
   return (
-    <AdminLayout page="Teachers">
+    <AdminLayout page="Students">
       <div className="flex flex-1 flex-col bg-gray-100 p-4">
         <div className="mb-4 flex items-center justify-between">
           <input
