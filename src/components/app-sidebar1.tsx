@@ -37,11 +37,11 @@ const data = {
         },
         {
           title: "Your Students",
-          url: "./your_student",
+          url: "./your_students",
         },
         {
           title: "View Previous Results",
-          url: "./view_previous_results",
+          url: "./view_class_results",
         },
         {
           title: "Results",
