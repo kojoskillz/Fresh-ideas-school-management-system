@@ -210,6 +210,25 @@ export default function Page() {
                 </div>
                 <FormField
                   control={form.control}
+                  name="phone_number"
+                  render={({ field }) => (
+                    <FormItem className="w-full md:max-w-[50%] md:pr-2">
+                      <FormLabel className="text-primary/70">
+                        Phone No
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          type="text"
+                          className="border-0 bg-primary-foreground rounded-sm"
+                          placeholder="Enter phone number"
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="address"
                   render={({ field }) => (
                     <FormItem className="w-full md:pr-2">
@@ -247,7 +266,7 @@ export default function Page() {
                   />
                   <FormField
                     control={form.control}
-                    name="phone_number"
+                    name="next_of_kin_number"
                     render={({ field }) => (
                       <FormItem className="w-full ">
                         <FormLabel className="text-primary/70">
