@@ -12,6 +12,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
+  SidebarRail
 } from "@/components/ui/sidebar";
 import {
   AdminDashboardIcon,
@@ -25,6 +26,7 @@ import {
 } from "@/components/svgs/NavbarSvg";
 import { Dot } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { ChevronSvg } from "@/components/svgs/Chevron";
 
 function AdminSidebar({
   page,
@@ -39,25 +41,25 @@ function AdminSidebar({
   const navItems = [
     {
       title: "Dashboard",
-      url: "/admin/dashboard",
+      url: "/admin_section/dashboard",
       isActive: page === "Admin",
       icon: <AdminDashboardIcon />,
     },
     {
       title: "Profile",
-      url: "/admin/profile",
+      url: "/admin_section/profile",
       isActive: page === "Profile",
       icon: <ProfileDashboardIcon />,
     },
     {
       title: "Subjects",
-      url: "/admin/subjects/add",
+      url: "/admin_section/subjects/add",
       isActive: page === "Subjects",
       icon: <SubjectsDashboardIcon />,
       children: [
         {
           title: "Add Subject",
-          url: "/admin/subjects/add",
+          url: "/admin_section/subjects/add",
           isActive: page === "Add Subject",
           icon: <Dot size={25} />,
         },
@@ -65,44 +67,45 @@ function AdminSidebar({
     },
     {
       title: "Add Teacher",
-      url: "/admin/Add_Teacher",
+      url: "/admin_section/Add_Teacher",
       isActive: page === "Add Teacher",
       icon: <AddStudentDashboardIcon />,
     },
     {
       title: "Add Student",
-      url: "/admin/Add_Student",
+      url: "/admin_section/Add_Student",
       isActive: page === "Add Student",
       icon: <AddStudentDashboardIcon />,
     },
     {
       title: "List of Teachers",
-      url: "/admin/teachers",
+      url: "/admin_section/teachers",
       isActive: page === "Teachers",
       icon: <ListDashboardIcon />,
     },
     {
       title: "List of Students",
-      url: "/admin/students",
+      url: "/admin_section/students",
       isActive: page === "Students",
       icon: <ListDashboardIcon />,
     },
     {
       title: "Results",
-      url: "/admin/results",
+      url: "/admin_section/results",
       isActive: page === "Results",
       icon: <ResultDashboardIcon />,
     },
     {
       title: "Quick Class Results",
-      url: "admin/quick_class_results",
+      url: "/admin_section/quick_class_results",
       isActive: page === "Quick Class Results",
       icon: <QuickResultDashboardIcon />,
     },
     {
       title: "Sign Out",
-      url: "/",
+      url: "/auth/login",
       icon: <SignoutDashboardIcon />,
+      isActive: false,
     },
   ];
 
@@ -118,13 +121,16 @@ function AdminSidebar({
     className,
     icon,
     title,
+    hasChildren,
     ...props
   }: {
     isActive?: boolean;
     className?: string;
     icon?: React.ReactNode;
     title?: string;
+    hasChildren?: boolean;
   } & React.ComponentPropsWithoutRef<"button">) {
+    console.log(isActive);
     return (
       <button
         className={cn(
@@ -144,6 +150,12 @@ function AdminSidebar({
         >
           {title}
         </span>
+
+        {hasChildren && (
+          <ChevronSvg
+            className={`size-3 ml-auto ${isActive ? "rotate-180" : "rotate-0"}`}
+          />
+        )}
       </button>
     );
   }
@@ -172,6 +184,7 @@ function AdminSidebar({
                       icon={item.icon}
                       isActive={item.isActive}
                       title={item.title}
+                      hasChildren={hasChildren}
                       onClick={async () => {
                         toggleSubNav(item.title);
                       }}
@@ -235,7 +248,7 @@ function AdminSidebar({
         </div>
       </SidebarFooter>
 
-      {/* <SidebarRail /> */}
+      <SidebarRail />
     </Sidebar>
   );
 }
