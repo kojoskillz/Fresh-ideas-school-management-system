@@ -76,7 +76,7 @@ const Homepage = () => {
               <h3 className="text-red-200">
                 Sign in to continue to the application
               </h3>
-              <Link href="/admin_section/dashboard">
+              <Link href="/admin/dashboard">
                 <button className="font-semibold rounded-lg bg-white text-blue-400 w-[7rem] cursor-pointer text-[12px] h-[2.4rem]">
                   Login Now
                 </button>

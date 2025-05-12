@@ -27,7 +27,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 export default function Page() {
   const form = useForm();
   return (
-    <AdminLayout page="Add Teacher" header="Teacher's profile">
+    <AdminLayout page="Add Student" header="Student's profile">
       <div className="grid grid-cols-3 gap-4 p-4 items-start ">
         <div className="col-span-1 bg-white pt-10 rounded-md pb-5 px-4">
           <div className="flex  flex-col items-center gap-4">
@@ -64,7 +64,7 @@ export default function Page() {
           </div>
           <div className="mt-4">
             <h4 className="text-center font-semibold mb-4">
-              Teacher&apos;s Name
+              Student&apos;s Name
             </h4>
             <ol className="space-y-2">
               <li>
@@ -93,7 +93,7 @@ export default function Page() {
         <div className="col-span-2 bg-white pt-10 rounded-md">
           <div className="text-center flex justify-center mb-8">
             <h5 className=" bg-secondary w-full text-white max-w-[400px] px-4 py-2 rounded-xl font-medium">
-              Add a Teacher
+              Add a Student
             </h5>
           </div>
           <div className="p-4 pb-5">
@@ -106,7 +106,7 @@ export default function Page() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-primary/70">
-                        Teacher&apos;s name
+                        Student&apos;s name
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -208,25 +208,47 @@ export default function Page() {
                     )}
                   />
                 </div>
-                <FormField
-                  control={form.control}
-                  name="phone_number"
-                  render={({ field }) => (
-                    <FormItem className="w-full md:max-w-[50%] md:pr-2">
-                      <FormLabel className="text-primary/70">
-                        Phone No
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          type="text"
-                          className="border-0 bg-primary-foreground rounded-sm"
-                          placeholder="Enter phone number"
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
+                <div className="flex gap-6">
+                  <FormField
+                    control={form.control}
+                    name="mobile_number"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel className="text-primary/70">
+                          Phone No
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="text"
+                            className="border-0 bg-primary-foreground rounded-sm"
+                            placeholder="Enter phone number"
+                            required
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="admission_number"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel className="text-primary/70">
+                          Admission number
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="text"
+                            className="border-0 bg-primary-foreground rounded-sm"
+                            placeholder="Enter admission number"
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
                 <FormField
                   control={form.control}
                   name="address"
@@ -247,11 +269,11 @@ export default function Page() {
                 <div className="flex gap-6">
                   <FormField
                     control={form.control}
-                    name="next_of_kin"
+                    name="father_name"
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormLabel className="text-primary/70">
-                          Next of kin&apos;s name
+                          Father&apos;s name
                         </FormLabel>
                         <FormControl>
                           <Input
@@ -266,7 +288,47 @@ export default function Page() {
                   />
                   <FormField
                     control={form.control}
-                    name="next_of_kin_number"
+                    name="father_number"
+                    render={({ field }) => (
+                      <FormItem className="w-full ">
+                        <FormLabel className="text-primary/70">
+                          Phone No
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="text"
+                            className="border-0 bg-primary-foreground rounded-sm"
+                            placeholder="Enter phone number"
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="flex gap-6">
+                  <FormField
+                    control={form.control}
+                    name="mother_name"
+                    render={({ field }) => (
+                      <FormItem className="w-full">
+                        <FormLabel className="text-primary/70">
+                          Mother&apos;s name
+                        </FormLabel>
+                        <FormControl>
+                          <Input
+                            {...field}
+                            type="text"
+                            className="border-0 bg-primary-foreground rounded-sm"
+                            placeholder="Enter next of kin"
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="mother_number"
                     render={({ field }) => (
                       <FormItem className="w-full ">
                         <FormLabel className="text-primary/70">
@@ -323,7 +385,7 @@ export default function Page() {
                   />
                 </div>
                 <div className="flex justify-end">
-                  <Button className="bg-secondary">
+                  <Button variant="secondary" className="gap-4">
                     <Save />
                     Save
                   </Button>
