@@ -12,7 +12,7 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuItem,
-  SidebarRail
+  SidebarRail,
 } from "@/components/ui/sidebar";
 import {
   AdminDashboardIcon,
@@ -31,7 +31,7 @@ import { ChevronSvg } from "@/components/svgs/Chevron";
 function AdminSidebar({
   page,
   ...props
-}: { page?: string; children: [] } & React.ComponentProps<typeof Sidebar>) {
+}: { page?: string; children?: [] } & React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
 
   const toggleSubNav = (title: string) => {
@@ -94,6 +94,20 @@ function AdminSidebar({
       url: "/admin_section/results",
       isActive: page === "Results",
       icon: <ResultDashboardIcon />,
+      children: [
+        {
+          title: "Add Result",
+          url: "/admin_section/results/add",
+          isActive: page === "Add Result",
+          icon: <Dot size={25} />,
+        },
+        {
+          title: "View Result",
+          url: "/admin_section/results/view",
+          isActive: page === "View Result",
+          icon: <Dot size={25} />,
+        },
+      ],
     },
     {
       title: "Quick Class Results",

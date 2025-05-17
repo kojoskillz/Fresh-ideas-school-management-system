@@ -16,15 +16,12 @@ function AdminHeader({ header }: { header?: string }) {
   const form = useForm();
 
   return (
-    <header className="py-2 px-4">
+    <header className="py-2 px-4 w-full">
       <div className="flex justify-between w-full mb-4">
         <div className="flex items-center">
           <SidebarTrigger size="lg" />
           <div className="ml-3 mr-5 h-5">
-            <Separator
-              orientation="vertical"
-              className="bg-gray-400"             
-            />
+            <Separator orientation="vertical" className="bg-gray-400" />
           </div>
           <Form {...form}>
             <form className="flex flex-col items-center gap-4">

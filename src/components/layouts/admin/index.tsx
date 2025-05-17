@@ -1,4 +1,5 @@
 "use client";
+
 import AdminSidebar from "@/components/layouts/admin/admin-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 
@@ -17,10 +18,10 @@ export default function AdminLayout({
 }: AdminLayoutProps) {
   return (
     <SidebarProvider>
-      <AdminSidebar page={page} />
-      <SidebarInset className=" bg-primary-foreground">
+      <AdminSidebar collapsible="offcanvas" page={page} />
+      <SidebarInset className="bg-primary-foreground w-full">
         <AdminHeader header={header} />
-        <div className="font-inter">{children}</div>
+        <main className="font-inter w-full">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   );
