@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import Image from "next/image";
+
 
 import { useEffect, useState } from "react";
 import { AppSidebar1 } from "@/components/app-sidebar1"; // Assuming this component exists
@@ -142,6 +143,7 @@ export default function Page() {
                 <div className="flex items-center gap-2 text-sm text-gray-600">
                      Show
                      <select
+                        title="entries to show"
                         value={entriesToShow}
                         onChange={(e) => setEntriesToShow(Number(e.target.value))}
                         className="border border-gray-300 rounded-md p-1"
@@ -170,8 +172,8 @@ export default function Page() {
                   <th className="p-4">S/No</th>
                   <th className="p-4">Names</th>
                   <th className="p-4">Profile</th>
-                  <th className="p-4">Teacher's comment</th>
-                  <th className="p-4">Head Teacher's comment</th>
+                  <th className="p-4">Teacher&lsquo;s comment</th>
+                  <th className="p-4">Head Teacher&lsquo;s comment</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200 text-sm text-gray-700">
