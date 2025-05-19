@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useEffect, useState } from "react";
 import { AppSidebar1 } from "@/components/app-sidebar1";
@@ -45,7 +46,7 @@ export default function Page() {
   ];
 
   // Example static scores (since we're in view-only mode)
-  const scores = {
+  const scores: { [key: number]: { [key: string]: number } } = {
     1: { English: 80, Mathematics: 75 },
     2: { English: 65, Mathematics: 70 },
     3: { English: 90, Mathematics: 85 },
@@ -118,7 +119,7 @@ export default function Page() {
                     <td className="p-2">{student.name}</td>
                     {subjects.map(subject => (
                       <td key={subject + student.id} className="p-2 text-center">
-                        {scores[student.id]?.[subject] ?? "-"}
+                        {scores[student.id as keyof typeof scores]?.[subject] ?? "-"}
                       </td>
                     ))}
                   </tr>

@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import { AppSidebar1 } from "@/components/app-sidebar1"; // Assuming this component exists
@@ -24,6 +23,7 @@ import {
 export default function Page() {
   // Keeping state variables from the original code
   const [name, setName] = useState("");
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [schoolname, setSchoolName] = useState(""); // schoolname is not used in the profile layout shown
   const [activeTab, setActiveTab] = useState("about"); // State to manage active tab
 
@@ -74,11 +74,25 @@ export default function Page() {
   }, []);
 
   // Handler for form input changes
-  const handleInputChange = (e) => {
+  interface SettingsForm {
+    teacherName: string;
+    dateOfBirth: string;
+    gender: string;
+    mobileNo: string;
+    religion: string;
+    phoneNumber: string;
+    address: string;
+    nextOfKinName: string;
+    nextOfKinPhone: string;
+    class: string;
+    password: string;
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSettingsForm(prevState => ({
+    setSettingsForm((prevState: SettingsForm) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -267,7 +281,7 @@ export default function Page() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-sm text-gray-700">
                      {/* Row 1 */}
                     <div className="flex flex-col gap-1">
-                      <label htmlFor="teacherName" className="font-medium">Teacher's name</label>
+                      <label htmlFor="teacherName" className="font-medium">Teacher&apos;s name</label>
                       <input
                         id="teacherName"
                         name="teacherName"
@@ -366,7 +380,7 @@ export default function Page() {
 
                     {/* Row 6 */}
                      <div className="flex flex-col gap-1">
-                      <label htmlFor="nextOfKinName" className="font-medium">Next of Kin's name</label>
+                      <label htmlFor="nextOfKinName" className="font-medium">Next of Kin&apos;s name</label>
                        <input
                         id="nextOfKinName"
                         name="nextOfKinName"

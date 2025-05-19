@@ -8,7 +8,17 @@ import {
   User,
   MessageSquareText,
   FileText,
+  Home,
+  UserCircle,
+  BookOpen,
+  Users,
+  Clock,
+  BarChart,
+  LogOut,
+  PlusCircle,
+  Eye,
 } from "lucide-react"
+
 import { SearchForm } from "@/components/search-form"
 import { VersionSwitcher } from "@/components/version-switcher"
 import {
@@ -31,33 +41,57 @@ const data = {
       title: "Getting Started",
       url: "#",
       items: [
-        { title: "Dashboard", url: "/dashboard" },
-        { title: "Profile", url: "/profile" },
-        { title: "Subjects", url: "/subjects" },
+        { title: "Dashboard", url: "./dashboard", icon: <Home size={16} /> },
+        { title: "Profile", url: "./profile", icon: <UserCircle size={16} /> },
+        { title: "Subjects", url: "./subjects", icon: <BookOpen size={16} /> },
         {
           title: "Your Students",
-          url: "#",
+          icon: <Users size={16} />,
           children: [
             {
               title: "Your Student Profile",
-              url: "/your_students/profile",
+              url: "./your_students/student-profile",
               icon: <User size={16} />,
             },
             {
-              title: "Add Comment",
-              url: "/your_students/comment",
+              title: "Input Comment",
+              url: "./your_students/input_comment",
               icon: <MessageSquareText size={16} />,
             },
             {
-              title: "Add Assessment",
-              url: "/your_students/assessment",
+              title: "Input Assessment",
+              url: "./your_students/input_assessment",
               icon: <FileText size={16} />,
             },
           ],
         },
-        { title: "View Previous Results", url: "/view_previous_results" },
-        { title: "Quick Class Results", url: "/quick_class_results" },
-        { title: "Sign Out", url: "/" },
+        {
+          title: "Results",
+          icon: <BarChart size={16} />,
+          children: [
+            {
+              title: "Add Result",
+              url: "./results/add_result",
+              icon: <PlusCircle size={16} />,
+            },
+            {
+              title: "View Result",
+              url: "./results/view_result",
+              icon: <Eye size={16} />,
+            },
+          ],
+        },
+        {
+          title: "View Previous Results",
+          url: "./view_class_results",
+          icon: <Clock size={16} />,
+        },
+        {
+          title: "Quick Class Results",
+          url: "./quick_class_results",
+          icon: <BarChart size={16} />,
+        },
+        { title: "Sign Out", url: "/", icon: <LogOut size={16} /> },
       ],
     },
   ],
@@ -66,6 +100,20 @@ const data = {
 export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname()
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
+
+  // Effect to open dropdown based on current pathname
+  React.useEffect(() => {
+    // Find dropdown that contains the current pathname
+    const foundDropdown = data.navMain[0].items.find((item) => {
+      if (!item.children) return false
+      return item.children.some((child) => {
+        // Compare paths strictly or loosely based on your needs
+        // Using startsWith allows for dynamic routes under that path
+        return pathname.startsWith(child.url.replace(/^\./, ""))
+      })
+    })
+    setOpenDropdown(foundDropdown ? foundDropdown.title : null)
+  }, [pathname])
 
   const toggleDropdown = (title: string) => {
     setOpenDropdown((prev) => (prev === title ? null : title))
@@ -93,7 +141,10 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
                         onClick={() => toggleDropdown(item.title)}
                         className="flex items-center justify-between w-full"
                       >
-                        <span>{item.title}</span>
+                        <span className="flex items-center gap-2">
+                          {item.icon}
+                          {item.title}
+                        </span>
                         {openDropdown === item.title ? (
                           <ChevronUp size={16} />
                         ) : (
@@ -106,7 +157,10 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
                             <SidebarMenuItem key={child.title}>
                               <SidebarMenuButton
                                 asChild
-                                isActive={pathname === child.url}
+                                isActive={
+                                  pathname === child.url.replace(/^\./, "") ||
+                                  pathname === child.url // fallback if no dot
+                                }
                               >
                                 <a
                                   href={child.url}
@@ -123,8 +177,14 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
                     </SidebarMenuItem>
                   ) : (
                     <SidebarMenuItem key={item.title}>
-                      <SidebarMenuButton asChild isActive={pathname === item.url}>
-                        <a href={item.url}>{item.title}</a>
+                      <SidebarMenuButton
+                        asChild
+                        isActive={pathname === item.url.replace(/^\./, "") || pathname === item.url}
+                      >
+                        <a href={item.url} className="flex items-center gap-2">
+                          {item.icon}
+                          {item.title}
+                        </a>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )

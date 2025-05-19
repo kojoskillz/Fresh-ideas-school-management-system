@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Image from "next/image";
 
@@ -20,13 +21,9 @@ import {
 
 export default function Page() {
   const [userName, setUserName] = useState("");
-  // Correcting the state variable name for clarity based on the image
-  const [teacherDetails, setTeacherDetails] = useState({
-    id: "1234567890", // Placeholder
-    class: "Basic 4", // Placeholder
-  });
+  const [teacherDetails, setTeacherDetails] = useState({ id: '12345', class: 'Form 5' });
 
-  // Fetch user name from localStorage
+  // Fetch user name from localStorage9
   useEffect(() => {
     const storedName = localStorage.getItem("userName");
     if (storedName) {
@@ -97,7 +94,7 @@ export default function Page() {
                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a4 4 0 00-4 4h8a4 4 0 00-4-4z" clipRule="evenodd" />
                   </svg> {/* User icon placeholder */}
-                 <span className="text-sm text-gray-700">{name || "teacher's name"}</span> {/* Use the `name` state */}
+                 <span className="text-sm text-gray-700">{userName || "teacher's name"}</span> {/* Use the `name` state */}
            </div>
         </header>
 
