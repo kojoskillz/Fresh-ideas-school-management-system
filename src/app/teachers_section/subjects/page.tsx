@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import Image from "next/image";
 
@@ -74,11 +75,27 @@ export default function Page() {
   }, []);
 
   // Handler for input changes in the settings form
-  const handleInputChange = (e) => {
+  interface FormData {
+    name: string;
+    admissionNo: string;
+    class: string;
+    category: string;
+    address: string;
+    dob: string;
+    phoneNumber: string;
+    gender: string;
+    religion: string;
+    password?: string;
+    fatherName: string;
+    motherName: string;
+    profileImageUrl?: string;
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
     setFormData(prevFormData => ({
         ...prevFormData,
-        [id]: value
+        [id]: value ?? ""
     }));
   };
 
@@ -112,7 +129,7 @@ export default function Page() {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Student's Profile</BreadcrumbPage>
+                <BreadcrumbPage>Student&lsquo;s Profile</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
@@ -281,12 +298,12 @@ export default function Page() {
                             </div>
                             <div className="flex items-center">
                                 <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
-                                <span className="font-semibold w-1/3">Father's name:</span>
+                                <span className="font-semibold w-1/3">Father&lsquo;s name:</span>
                                 <span>{studentData.fatherName}</span>
                             </div>
                              <div className="flex items-center">
                                 <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
-                                <span className="font-semibold w-1/3">Mother's name:</span>
+                                <span className="font-semibold w-1/3">Mother&apos;s name:</span>
                                 <span>{studentData.motherName}</span>
                             </div>
                         </div>
@@ -296,12 +313,12 @@ export default function Page() {
                 <TabsContent value="settings" className="mt-4">
                     <h3 className="text-md font-semibold mb-4">PERSONAL INFORMATION</h3>
                      <p className="text-sm text-muted-foreground mb-6">
-                        You can edit the student's information below, kindly be informed that any uteration or modification of the information will replace the previous information.
+                        You can edit the student&lsquo;s information below, kindly be informed that any uteration or modification of the information will replace the previous information.
                     </p>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                          {/* Row 1: Student's name */}
                         <div className="md:col-span-2">
-                            <Label htmlFor="name">Student's name</Label>
+                            <Label htmlFor="name">Student&lsquo;s name</Label>
                             <Input id="name" value={formData.name} onChange={handleInputChange} />
                         </div>
                         {/* Row 2: Date of Birth, Category, Gender */}
@@ -333,11 +350,11 @@ export default function Page() {
                         </div>
                         {/* Row 5: Father's name, Mother's name */}
                         <div>
-                            <Label htmlFor="fatherName">Father's name</Label>
+                            <Label htmlFor="fatherName">Father&lsquo;s name</Label>
                             <Input id="fatherName" value={formData.fatherName} onChange={handleInputChange} />
                         </div>
                         <div>
-                            <Label htmlFor="motherName">Mother's name</Label>
+                            <Label htmlFor="motherName">Mother&lsquo;s name</Label>
                             <Input id="motherName" value={formData.motherName} onChange={handleInputChange} />
                         </div>
                          {/* Row 6: Class, Category (appears again in image?), Admission No, Password */}
