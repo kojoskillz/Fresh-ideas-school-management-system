@@ -144,7 +144,6 @@ function AdminSidebar({
     title?: string;
     hasChildren?: boolean;
   } & React.ComponentPropsWithoutRef<"button">) {
-    console.log(isActive);
     return (
       <button
         className={cn(

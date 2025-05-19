@@ -12,7 +12,7 @@ import FullScreenIcon from "@/components/svgs/FullScreenIcon";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 
-function AdminHeader({ header }: { header?: string }) {
+function AdminHeader({ header }: { header?: string | React.ReactNode }) {
   const form = useForm();
 
   return (

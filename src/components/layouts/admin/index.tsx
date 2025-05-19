@@ -8,7 +8,7 @@ import AdminHeader from "./admin-header";
 interface AdminLayoutProps {
   children: React.ReactNode;
   page: string;
-  header?: string;
+  header?: string | React.ReactNode;
 }
 
 export default function AdminLayout({
