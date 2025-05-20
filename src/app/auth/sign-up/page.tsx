@@ -2,41 +2,38 @@
 
 import React from "react";
 import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormDescription,
-  FormLabel,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-  SelectSeparator,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
+import {
+  Form,
+  FormLabel,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormControl,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectTrigger,
+  SelectContent,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 
 const positions = ["ADMIN", "TEACHER", "STUDENT"] as const;
 
-const loginSchema = z
+const signUpSchema = z
   .object({
     email: z
       .string()
       .min(1, "Email or phone is required")
       .email("Invalid email"),
     password: z.string().min(6, "Password must be at least 6 characters"),
-    confirm_password: z
-      .string()
-      .min(6, "Password must be at least 6 characters"),
+    confirm_password: z.string().min(6, "Password must be at least 6 characters"),
     lastName: z.string().min(1, "Surname/First last is required"),
     firstName: z.string().min(1, "Surname/First last is required"),
     phone: z.string().min(11, "Enter a valid number"),
@@ -47,73 +44,67 @@ const loginSchema = z
     message: "Passwords do not match",
   });
 
-type LoginFormValues = z.infer<typeof loginSchema>;
+type SignUpFormValues = z.infer<typeof signUpSchema>;
 
 function Page() {
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<SignUpFormValues>({
+    resolver: zodResolver(signUpSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirm_password: "",
       lastName: "",
-      phone: "",
       firstName: "",
+      phone: "",
       position: undefined,
     },
   });
 
-  const handleSubmitHandler = (data: LoginFormValues) => {
+  const handleSubmitHandler = (data: SignUpFormValues) => {
     console.log(data);
   };
 
   return (
-    <div className="bg-auth min-h-dvh flex items-center justify-center p-4">
-      <div className="w-full max-w-[1000px] bg-white shadow-primary/25 shadow-sm px-10 lg:p-16 pt-10 pb-16 rounded-md">
-        {/* <h3 className="font-bold text-center mb-8">Welcome!</h3> */}
-
+    <div className="min-h-screen bg-blue-100 flex items-center justify-center p-6">
+      <div
+        className="
+          w-full max-w-2xl
+          bg-white
+          rounded-2xl
+          shadow-xl
+          p-10
+          border border-transparent
+        "
+      >
         <Form {...form}>
-          <FormDescription className="text-primary font-bold text-xl mb-5">
-            Sign up
+          <FormDescription className="text-primary font-extrabold text-3xl mb-10 text-center tracking-wide">
+            Create Your Account
           </FormDescription>
-          <form
-            method="POST"
-            className=""
-            onSubmit={form.handleSubmit(handleSubmitHandler)}
-          >
-            <div className="flex w-full gap-10">
-              <div className="space-y-4 mb-8 w-full">
+
+          <form onSubmit={form.handleSubmit(handleSubmitHandler)} className="space-y-8" noValidate>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Left Column */}
+              <div className="space-y-6">
                 <FormField
                   name="lastName"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-primary font-medium">
+                      <FormLabel className="text-primary font-semibold tracking-tight">
                         Surname
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
                           placeholder="Enter surname/last name"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="firstName"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-primary font-medium">
-                        First name
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
-                          placeholder="Enter first name"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
                         />
                       </FormControl>
                       <FormMessage />
@@ -125,33 +116,21 @@ function Page() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-primary font-medium">
+                      <FormLabel className="text-primary font-semibold tracking-tight">
                         Phone number
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
                           placeholder="Enter phone number"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  name="email"
-                  control={form.control}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="text-primary font-medium">
-                        Email address
-                      </FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
-                          placeholder="Enter email address"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
                         />
                       </FormControl>
                       <FormMessage />
@@ -163,14 +142,22 @@ function Page() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-primary font-medium">
+                      <FormLabel className="text-primary font-semibold tracking-tight">
                         Password
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
+                          type="password"
                           placeholder="Enter password"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
                         />
                       </FormControl>
                       <FormMessage />
@@ -178,38 +165,56 @@ function Page() {
                   )}
                 />
               </div>
-              <div className="space-y-4 mb-8 w-full flex gap-[79px] flex-col justify-end">
+
+              {/* Right Column */}
+              <div className="space-y-6">
                 <FormField
-                  name="position"
+                  name="firstName"
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-primary font-medium">
-                        Position
+                      <FormLabel className="text-primary font-semibold tracking-tight">
+                        First name
                       </FormLabel>
                       <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                          value={field.value}
-                        >
-                          <SelectTrigger className="w-full border-0 bg-primary-foreground rounded-sm shadow-sm shadow-primary/20">
-                            <SelectValue placeholder="Select position" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value={positions[0]}>
-                              {positions[0]}
-                            </SelectItem>
-                            <SelectSeparator />
-                            <SelectItem value={positions[1]}>
-                              {positions[1]}
-                            </SelectItem>
-                            <SelectSeparator />
-                            <SelectItem value={positions[2]}>
-                              {positions[2]}
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                        <Input
+                          {...field}
+                          placeholder="Enter first name"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="email"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold tracking-tight">
+                        Email address
+                      </FormLabel>
+                      <FormControl>
+                        <Input
+                          {...field}
+                          placeholder="Enter email address"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -220,15 +225,85 @@ function Page() {
                   control={form.control}
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className="text-primary font-medium">
-                        Confirm your Password
+                      <FormLabel className="text-primary font-semibold tracking-tight">
+                        Confirm Password
                       </FormLabel>
                       <FormControl>
                         <Input
                           {...field}
-                          className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
+                          type="password"
                           placeholder="Confirm password"
+                          className="
+                            bg-gray-50
+                            shadow-sm
+                            border border-gray-300
+                            rounded-lg
+                            focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                            transition
+                          "
                         />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  name="position"
+                  control={form.control}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary font-semibold tracking-tight">
+                        Position
+                      </FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange} value={field.value}>
+                          <SelectTrigger
+                            className="
+                              w-full
+                              bg-gray-50
+                              border border-gray-300
+                              rounded-lg
+                              shadow-sm
+                              focus:border-blue-500 focus:ring-1 focus:ring-blue-500
+                              transition
+                              cursor-pointer
+                              h-10
+                              flex items-center
+                              px-3
+                            "
+                          >
+                            <SelectValue placeholder="Select position" />
+                          </SelectTrigger>
+                          <SelectContent
+                            className="
+                              bg-white
+                              rounded-md
+                              shadow-lg
+                              border border-gray-200
+                              py-1
+                              max-h-60
+                              overflow-auto
+                            "
+                          >
+                            {positions.map((role) => (
+                              <SelectItem
+                                key={role}
+                                value={role}
+                                className="
+                                  cursor-pointer
+                                  select-none
+                                  py-2
+                                  px-4
+                                  hover:bg-blue-100
+                                  data-[highlighted]:bg-blue-200
+                                  data-[selected]:font-semibold
+                                "
+                              >
+                                {role}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -236,19 +311,24 @@ function Page() {
                 />
               </div>
             </div>
-            <div className="flex justify-center pb-16">
-              <Button className="px-12 text-lg" type="submit">
+
+            <div className="flex justify-center pt-4">
+              <Button
+                type="submit"
+                className="px-14 py-3 text-lg font-semibold bg-blue-600 text-white rounded-lg shadow-md cursor-pointer transition-none"
+              >
                 Sign up
               </Button>
             </div>
           </form>
         </Form>
-        <div className="flex justify-center">
-          <p className="text-primary/60 pb-10 font-medium">
+
+        <div className="flex justify-center mt-8">
+          <p className="text-primary/70 font-medium">
             Already have an account?{" "}
             <Link
-              className="hover:text-primary transition-all duration-300 ease-linear"
               href="/auth/login"
+              className="hover:text-blue-600 font-semibold transition-colors duration-300"
             >
               Sign in
             </Link>
