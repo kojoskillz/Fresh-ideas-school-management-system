@@ -101,14 +101,10 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
   const pathname = usePathname()
   const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
 
-  // Effect to open dropdown based on current pathname
   React.useEffect(() => {
-    // Find dropdown that contains the current pathname
     const foundDropdown = data.navMain[0].items.find((item) => {
       if (!item.children) return false
       return item.children.some((child) => {
-        // Compare paths strictly or loosely based on your needs
-        // Using startsWith allows for dynamic routes under that path
         return pathname.startsWith(child.url.replace(/^\./, ""))
       })
     })
@@ -159,7 +155,7 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
                                 asChild
                                 isActive={
                                   pathname === child.url.replace(/^\./, "") ||
-                                  pathname === child.url // fallback if no dot
+                                  pathname === child.url
                                 }
                               >
                                 <a
@@ -179,7 +175,9 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton
                         asChild
-                        isActive={pathname === item.url.replace(/^\./, "") || pathname === item.url}
+                        isActive={
+                          pathname === item.url.replace(/^\./, "") || pathname === item.url
+                        }
                       >
                         <a href={item.url} className="flex items-center gap-2">
                           {item.icon}
@@ -194,6 +192,17 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
           </SidebarGroup>
         ))}
       </SidebarContent>
+
+      {/* Student Portal image at the bottom */}
+      <div className="flex flex-col items-center justify-center p-4">
+        <img
+          src="/img1.png" // Place this image in /public folder or update path
+          alt="Student Portal"
+          className="w-32 h-32 object-contain rounded-full"
+        />
+        <p className="text-sm font-semibold mt-2">Student Portal</p>
+      </div>
+
       <SidebarRail />
     </Sidebar>
   )
