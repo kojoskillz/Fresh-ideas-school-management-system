@@ -8,7 +8,7 @@ const Homepage = () => {
     // main container
     <>
       <div className="grid grid-flow-col grid-rows-2 pt-32 gap-4 lg:m-auto  place-content-center">
-        {/* container1 */}
+        {/* Students section */}
         <div className="bg-white h-[15rem] w-[25rem] shadow-lg p-5 row-span-2 row-start-1">
           <div className="flex">
             <div className="grid">
@@ -16,7 +16,7 @@ const Homepage = () => {
               <h3 className="text-md font-semibold text-black/50">
                 Sign in to continue to the application
               </h3>
-              <Link href="/student_section/dashboard">
+              <Link href="/auth/login">
                 <button className="bg-blue-500  w-[7rem] h-[2.4rem] font-semibold rounded-lg text-[12px] text-white cursor-pointer">
                   Login Now
                 </button>
@@ -32,7 +32,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* container2 */}
+        {/* Teachers Section */}
         <div className="bg-[#6C75F0] h-[15rem] w-[25rem] shadow-lg p-5">
           <div className="flex">
             <div className="grid">
@@ -42,7 +42,7 @@ const Homepage = () => {
               <h3 className="text-md font-semibold text-white">
                 Sign in to continue to the application
               </h3>
-              <Link href="/teachers_section/dashboard">
+              <Link href="/auth/login">
                 <button className="text-blue-500 bg-white w-[7rem] h-[2.4rem] font-semibold cursor-pointer text-[12px] rounded-lg">
                   Sign in
                 </button>
@@ -68,7 +68,7 @@ const Homepage = () => {
           </div>
         </div>
 
-        {/* container3 */}
+        {/* Admin Section */}
         <div className="bg-[#F2426D] h-[15.3rem] w-[25rem] shadow-lg p-5 item-center justify-center m-auto place-content-center">
           <div className="flex">
             <div className="grid">
