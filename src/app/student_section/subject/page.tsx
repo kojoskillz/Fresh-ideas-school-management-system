@@ -54,9 +54,18 @@ export default function SubjectTablePage() {
   const currentSubjects = subjects.slice(indexOfFirstEntry, indexOfLastEntry);
 
   // Handle page change
-  const handlePageChange = (pageNumber) => {
+interface Subject {
+    id: number;
+    teacher: string;
+    subject: string;
+    class: string;
+    term: number;
+    session: string;
+}
+
+const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
+};
 
   return (
     <SidebarProvider>
@@ -107,6 +116,7 @@ export default function SubjectTablePage() {
           <div className="flex items-center mb-4">
             <span className="text-sm mr-2">Show</span>
             <select
+              aria-label="Entries per page"
               className="border border-gray-300 rounded-md p-1.5 focus:outline-none focus:ring-1 focus:ring-blue-500"
               value={entriesPerPage}
               onChange={(e) => {
