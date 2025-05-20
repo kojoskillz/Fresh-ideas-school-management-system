@@ -1,0 +1,20 @@
+import React from "react";
+
+function FullScreenIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+    >
+      <path
+        d="M0 25V16.6667H2.77778V20.2778L7.08333 15.9722L9.02778 17.9167L4.72222 22.2222H8.33333V25H0ZM16.6667 25V22.2222H20.2778L15.9722 17.9167L17.9167 15.9722L22.2222 20.2778V16.6667H25V25H16.6667ZM7.08333 9.02778L2.77778 4.72222V8.33333H0V0H8.33333V2.77778H4.72222L9.02778 7.08333L7.08333 9.02778ZM17.9167 9.02778L15.9722 7.08333L20.2778 2.77778H16.6667V0H25V8.33333H22.2222V4.72222L17.9167 9.02778Z"
+        fill="black"
+      />
+    </svg>
+  );
+}
+
+export default FullScreenIcon;

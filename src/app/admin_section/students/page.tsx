@@ -146,7 +146,7 @@ const initialRows = [
 
 export default function Page() {
   return (
-    <AdminLayout page="Teachers" header="Teachers List">
+    <AdminLayout page="Students" header="Students List">
       <div className="px-4 mt-5">
         <div className="flex gap-1 items-center">
           <div className="flex items-center bg-[#E3E3E363]">
@@ -207,7 +207,7 @@ export default function Page() {
                       <Button variant="ghost" className="text-primary/50">
                         <Edit />
                       </Button>
-                      <Button variant="ghost" className="" color="pink">
+                      <Button variant="ghost" className="text-red-400">
                         <Delete />
                       </Button>
                     </TableCell>
