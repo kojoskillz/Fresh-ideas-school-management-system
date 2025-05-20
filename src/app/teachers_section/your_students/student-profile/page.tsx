@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-
+import Image from "next/image";
 
 import { useEffect, useState } from "react";
 import { AppSidebar1 } from "@/components/app-sidebar1"; // Assuming this component exists
@@ -11,216 +11,391 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"; // Assuming these components exist
-import { Separator } from "@/components/ui/separator"; // Assuming this component exists
+} from "@/components/ui/breadcrumb"; // Assuming shadcn/ui components
+import { Separator } from "@/components/ui/separator"; // Assuming shadcn/ui components
 import {
   SidebarInset,
   SidebarProvider,
   SidebarTrigger,
-} from "@/components/ui/sidebar"; // Assuming these components exists
+} from "@/components/ui/sidebar"; // Assuming shadcn/ui components
 
-// Assuming you have an Input component or will use a standard HTML input
-// import { Input } from "@/components/ui/input";
+// Assuming these components are available or you'll create them
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+
 
 export default function Page() {
-  // Keep state for user name for the header
-  const [name, setName] = useState("");
-  // schoolname is not used in this layout, keeping it as per previous code
-  const [schoolname, setSchoolName] = useState("");
+  const [userName, setUserName] = useState(""); // Renamed 'name' to 'userName' for clarity
+  const [schoolName, setSchoolName] = useState(""); // Corrected state variable name
 
-  // State for search input (optional, but good for functionality)
-  const [searchTerm, setSearchTerm] = useState("");
-  // State for "Show X entries" (optional)
-  const [entriesToShow, setEntriesToShow] = useState(50);
+  // Placeholder student data (replace with actual data fetching logic)
+  // This data will also be used to initialize the settings form
+  const [studentData, setStudentData] = useState({
+    name: "JANET MARVELOUS",
+    admissionNo: "100002",
+    class: "basic 4 white",
+    category: "Day",
+    address: "13, Johnson Street, Yaba, Lagos",
+    dob: "01-03-2000",
+    phoneNumber: "+2348036363636",
+    gender: "Female",
+    religion: "Christain",
+    password: "password", // Note: Storing plain password is not secure. This is illustrative.
+    fatherName: "Marvelous Becker",
+    motherName: "Marvelous Joyce",
+    profileImageUrl: "/placeholder-avatar.png", // Add a placeholder image or handle avatar upload state
+  });
 
-  // Fetch user name from localStorage for the header
+   // State to manage the editable form data in the Settings tab
+   const [formData, setFormData] = useState(studentData);
+
+   // Effect to initialize form data when studentData is loaded
+   useEffect(() => {
+       setFormData(studentData);
+   }, [studentData]); // Re-initialize if studentData changes (e.g., after fetching)
+
+
+  // Fetch userName from localStorage
   useEffect(() => {
     const storedName = localStorage.getItem("userName");
     if (storedName) {
-      setName(storedName);
+      setUserName(storedName);
     }
-     // Keep or remove the schoolName effect based on your needs,
-     // but it doesn't affect this specific layout based on the screenshot
-     // useEffect(() => {
-     //   const storedName1 = localStorage.getItem("schoolName");
-     //   if (storedName1) {
-     //     setName(storedName1); // This was overwriting name, should be setSchoolName
-     //   }
-     // }, []);
   }, []);
 
-  // Placeholder student data based on the screenshot
-  const students = [
-    { id: 1, name: "Joy" },
-    { id: 2, name: "Amaka" },
-    { id: 3, name: "James" },
-    { id: 4, name: "Florence" },
-     { id: 5, name: "Joy" },
-    { id: 6, name: "Amaka" },
-    { id: 7, name: "James" },
-    { id: 8, name: "Florence" },
-     { id: 9, name: "Joy" },
-    { id: 10, name: "Amaka" },
-    { id: 11, name: "James" },
-    { id: 12, name: "Florence" },
-     { id: 13, name: "Joy" },
-    { id: 14, name: "Amaka" },
-    { id: 15, name: "James" },
-    { id: 16, name: "Florence" },
-    { id: 17, name: "Joy" },
-    { id: 18, name: "Amaka" },
-    // Add more student data as needed
-  ];
+  // Fetch schoolName from localStorage
+  useEffect(() => {
+    const storedName1 = localStorage.getItem("schoolName");
+    if (storedName1) {
+      setSchoolName(storedName1);
+    }
+  }, []);
+
+  // Handler for input changes in the settings form
+  interface FormData {
+    name: string;
+    admissionNo: string;
+    class: string;
+    category: string;
+    address: string;
+    dob: string;
+    phoneNumber: string;
+    gender: string;
+    religion: string;
+    password?: string;
+    fatherName: string;
+    motherName: string;
+    profileImageUrl?: string;
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData(prevFormData => ({
+        ...prevFormData,
+        [id]: value ?? ""
+    }));
+  };
+
+  // Handler for the Save button
+  const handleSave = () => {
+      console.log("Saving student data:", formData);
+      // TODO: Implement actual save logic here, e.g., send data to an API
+      alert("Data saved (simulated)"); // Simple alert for demonstration
+      // Update the displayed data in the "About" tab if save was successful
+      // setStudentData(formData); // Uncomment this if you want to reflect changes immediately in "About"
+  };
+
 
   return (
     <SidebarProvider>
-      {/* Assuming AppSidebar1 matches the sidebar */}
+      {/* AppSidebar1 is assumed to be a component you have */}
       <AppSidebar1 />
       <SidebarInset>
-        {/* Header Section (Modified for Search and User Info) */}
+        {/* Header */}
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator
             orientation="vertical"
             className="mr-2 data-[orientation=vertical]:h-4"
           />
-          {/* Updated Breadcrumb */}
+          {/* Updated Breadcrumb to match image */}
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
+              <BreadcrumbItem>
                 <BreadcrumbLink href="#">Dashboard</BreadcrumbLink>
               </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
+              <BreadcrumbSeparator />
               <BreadcrumbItem>
-                {/* Breadcrumb updated to match Student List page */}
-                <BreadcrumbPage>My Students</BreadcrumbPage>
+                <BreadcrumbPage>Student&lsquo;s Profile</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
 
-          {/* Search bar and User Info (matching the screenshot header) */}
-           <div className="flex flex-1 items-center gap-2 justify-between ml-4"> {/* Added flex-1 and justify-between */}
-               {/* Search Input */}
-               <div className="relative w-full max-w-md"> {/* Max width for search */}
-                 <svg xmlns="http://www.w3.org/2000/svg" className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                 </svg> {/* Search icon */}
-                 <input
-                    type="text"
-                    placeholder="Search"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full rounded-md border border-gray-300 bg-white py-2 pl-8 pr-4 text-sm focus:outline-none focus:ring-1 focus:ring-blue-500"
-                 />
-               </div>
+          {/* Header elements from image: Search, Teacher Name, Avatar */}
+          {/* You might need to add state and handlers for search */}
+          <div className="ml-auto flex items-center gap-4">
+             {/* Search Bar (basic example) */}
+            <div className="relative ml-auto flex-1 md:grow-0">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.5 3.75a6.75a6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              <Input
+                type="search"
+                placeholder="Search..."
+                className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[320px]"
+              />
+            </div>
+            {/* Teacher Name and Role (using userName state) */}
+            <div className="text-sm">
+                <div className="font-medium">{userName || "Teacher's Name"}</div>
+                <div className="text-muted-foreground">TEACHER</div> {/* Role is hardcoded based on image */}
+            </div>
+            {/* Avatar/Profile Icon */}
+             <div className="h-8 w-8 rounded-full bg-gray-400 flex items-center justify-center text-white">
+                 {/* Replace with actual avatar image or component */}
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+                    <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0v3.75a2.25 2.25 0 01-1.5 2.122l-1.315.44a2.25 2.25 0 00-1.137 2.107V16.5h.002a.75.75 0 01.364.085l.718.384a1.5 1.5 0 001.432-.178l.28-.14a1.5 1.5 0 011.661-.053l.164.082a1.5 1.5 0 001.567.29l1.88-1.253a1.5 1.5 0 00-.369-2.22l-.153-.102a2.25 2.25 0 01-.807-3.07l.14-.21a2.25 2.25 0 00-.81-3.11l-.136-.09a2.25 2.25 0 01-1.134-2.11V6Z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M11.78 15.76c.141.05.29.092.44.126V16.5h-.002a.75.75 0 01-.364-.085l-.718-.384a1.5 1.5 0 00-1.432.178l-.28.14a1.5 1.5 0 01-1.66.053l-.165-.082a1.5 1.5 0 00-1.567-.295l-1.881 1.254a1.5 1.5 0 00.369 2.219l.153.102a2.25 2.25 0 01.807 3.07l-.141.21a2.25 2.25 0 00.81 3.111l.135.09a2.25 2.25 0 011.135 2.109v.375a.75.75 0 001.5 0v-.375a4.5 4.5 0 10-9 0v.375a.75.75 0 001.5 0v-.375a2.25 2.25 0 011.135-2.109l.135-.09a2.25 2.25 0 00.81-3.111l-.14-.21a2.25 2.25 0 01.807-3.07l.153-.102a1.5 1.5 0 00.369-2.219l-1.88-1.254a1.5 1.5 0 00-1.567-.29l-.164.082a1.5 1.5 0 01-1.661.053l-.28-.14a1.5 1.5 0 00-1.432-.178l-.718.384a.75.75 0 01-.364.085H4.5a.75.75 0 00-.75.75V18a2.25 2.25 0 002.25 2.25h.375a.75.75 0 000-1.5H6a.75.75 0 01.75-.75h1.5a.75.75 0 000-1.5H6.75A.75.75 0 016 14.25h-.375a.75.75 0 000 1.5H6A.75.75 0 016.75 16.5h1.5a.75.75 0 000-1.5H7.5Z" clipRule="evenodd" />
+                    </svg>
 
-               {/* User Info and Icons */}
-               <div className="flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
-                    </svg> {/* Moon/Sun icon placeholder */}
-                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg> {/* Menu icon placeholder */}
-                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
-                        <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a4 4 0 00-4 4h8a4 4 0 00-4-4z" clipRule="evenodd" />
-                      </svg> {/* User icon placeholder */}
-                     <div className="flex flex-col text-right">
-                        <span className="text-sm font-semibold text-gray-800">{name || "teacher's name"}</span> {/* Use the `name` state */}
-                         <span className="text-xs text-gray-500">TEACHER</span> {/* Static role */}
-                     </div>
-               </div>
-           </div>
-
+             </div>
+          </div>
         </header>
 
-        {/* Main Content Area (Student List Table) */}
-        <div className="flex flex-1 bg-gray-100 flex-col gap-4 p-4">
-          {/* My Students Heading and Controls */}
-           <div className="flex justify-between items-center mb-4">
-                <h1 className="text-xl font-bold text-gray-800">My Students</h1>
-                 {/* "Show X entries" control */}
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                     Show
-                     <select
-                        title="entries to show"
-                        value={entriesToShow}
-                        onChange={(e) => setEntriesToShow(Number(e.target.value))}
-                        className="border border-gray-300 rounded-md p-1"
-                     >
-                        <option value={10}>10</option>
-                        <option value={25}>25</option>
-                        <option value={50}>50</option>
-                        <option value={100}>100</option>
-                     </select>
-                     entries
-                </div>
-           </div>
-
-           {/* Full Name Label (as seen in screenshot, though context is unclear) */}
-           {/* Keeping it as a label for now */}
-            <div className="text-sm text-gray-600 mb-2">
-                Full Name:
+        {/* Main Content Area - Implementing the layout from the image */}
+        <div className="flex flex-1 flex-col gap-4 p-4 md:grid md:grid-cols-3 lg:grid-cols-4 bg-gray-100"> {/* Used gray-100 for a softer background */}
+          {/* Left Column: Profile Picture and Basic Info */}
+          <Card className="md:col-span-1 lg:col-span-1 p-4 flex flex-col items-center gap-4">
+            <div className="relative h-32 w-32 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden">
+              {/* Placeholder for student image */}
+              {studentData.profileImageUrl ? (
+                 <Image
+                    src={studentData.profileImageUrl}
+                    alt="Student Avatar"
+                    width={128}
+                    height={128}
+                    className="object-cover rounded-full"
+                 />
+              ) : (
+                // Fallback if no image
+                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-16 h-16 text-gray-500">
+                    <path fillRule="evenodd" d="M7.5 6a4.5 4.5 0 119 0v3.75a2.25 2.25 0 01-1.5 2.122l-1.315.44a2.25 2.25 0 00-1.137 2.107V16.5h.002a.75.75 0 01.364.085l.718.384a1.5 1.5 0 001.432-.178l.28-.14a1.5 1.5 0 011.661-.053l.164.082a1.5 1.5 0 001.567.29l1.88-1.253a1.5 1.5 0 00-.369-2.22l-.153-.102a2.25 2.25 0 01-.807-3.07l.14-.21a2.25 2.25 0 00-.81-3.11l-.136-.09a2.25 2.25 0 01-1.134-2.11V6Z" clipRule="evenodd" />
+                    <path fillRule="evenodd" d="M11.78 15.76c.141.05.29.092.44.126V16.5h-.002a.75.75 0 01-.364-.085l-.718-.384a1.5 1.5 0 00-1.432.178l-.28.14a1.5 1.5 0 01-1.66.053l-.165-.082a1.5 1.5 0 00-1.567-.295l-1.881 1.254a1.5 1.5 0 00.369 2.219l.153.102a2.25 2.25 0 01.807 3.07l-.141.21a2.25 2.25 0 00.81 3.111l.135.09a2.25 2.25 0 011.135 2.109v.375a.75.75 0 001.5 0v-.375a4.5 4.5 0 10-9 0v.375a.75.75 0 001.5 0v-.375a2.25 2.25 0 011.135-2.109l.135-.09a2.25 2.25 0 00.81-3.111l-.14-.21a2.25 2.25 0 01.807-3.07l.153-.102a1.5 1.5 0 00.369-2.219l-1.88-1.254a1.5 1.5 0 00-1.567-.29l-.164.082a1.5 1.5 0 01-1.661.053l-.28-.14a1.5 1.5 0 00-1.432-.178l-.718.384a.75.75 0 01-.364.085H4.5a.75.75 0 00-.75.75V18a2.25 2.25 0 002.25 2.25h.375a.75.75 0 000-1.5H6a.75.75 0 01.75-.75h1.5a.75.75 0 000-1.5H6.75A.75.75 0 016 14.25h-.375a.75.75 0 000 1.5H6A.75.75 0 016.75 16.5h1.5a.75.75 0 000-1.5H7.5Z" clipRule="evenodd" />
+                    </svg>
+              )}
             </div>
+            {/* File Upload Input - Hidden visually */}
+            <Input type="file" id="profile-upload" className="sr-only" />
+            {/* Custom Button to trigger file input */}
+            <Label htmlFor="profile-upload" className="w-full"> {/* Made label width full for button */}
+                {/* "Choose a file" button - Keep secondary variant */}
+                <Button asChild className="w-full" variant="secondary">
+                    <span>Choose a file</span>
+                </Button>
+            </Label>
+            {/* Placeholder for file name */}
+            <div className="text-sm text-muted-foreground">No file chosen</div>
 
+            {/* Upload Button - Added pink background and hover effect */}
+            <Button
+              className="w-full bg-pink-500 text-white hover:bg-pink-600" // Added custom pink color and hover
+              variant="default" // Use default variant to allow background color override
+            >
+              Upload
+            </Button>
 
-          {/* Student Table */}
-          <div className="overflow-x-auto bg-white rounded-xl shadow-sm"> {/* Add overflow for responsiveness */}
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  <th className="p-4">S/No</th>
-                  <th className="p-4">Names</th>
-                  <th className="p-4">Profile</th>
-                  <th className="p-4">Teacher&lsquo;s comment</th>
-                  <th className="p-4">Head Teacher&lsquo;s comment</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200 text-sm text-gray-700">
-                {students.map((student, index) => (
-                  <tr key={student.id}>
-                    <td className="p-4">{index + 1}</td> {/* S/No */}
-                    <td className="p-4">{student.name}</td> {/* Names */}
-                    <td className="p-4">
-                        {/* Profile Button */}
-                        <button className="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-md hover:bg-green-600 flex items-center gap-1">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                            </svg> {/* Check icon */}
-                            Profile
-                        </button>
-                    </td>
-                    <td className="p-4">
-                        {/* Input Comment Button */}
-                         <button className="px-3 py-1 bg-pink-500 text-white text-xs font-semibold rounded-md hover:bg-pink-600 flex items-center gap-1">
-                             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                            </svg> {/* Pencil/Edit icon */}
-                             Input Comment
-                        </button>
-                    </td>
-                    <td className="p-4 text-gray-500">No comment</td> {/* Head Teacher's comment */}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+            {/* Student Basic Info */}
+            <div className="text-center font-bold text-lg mt-4">
+                {studentData.name}
+            </div>
+             <div className="w-full text-sm text-left mt-2 space-y-2">
+                <div>
+                    <span className="font-semibold">Admission No:</span> {studentData.admissionNo}
+                </div>
+                 <div>
+                    <span className="font-semibold">Class:</span> {studentData.class}
+                </div>
+                <div>
+                    <span className="font-semibold">Category:</span> {studentData.category}
+                </div>
+                 <div>
+                    <span className="font-semibold">Address:</span> {studentData.address}
+                </div>
+             </div>
+          </Card>
 
-          {/* Pagination */}
-           <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
-              {/* Placeholder text - you might want to show actual count */}
-               <div>Showing 1 to {students.length} of {students.length} entries</div> {/* Example: adjust based on pagination logic */}
-               <div className="flex gap-1">
-                    <button className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200">Previous</button>
-                    <button className="px-3 py-1 border border-blue-500 bg-blue-500 text-white rounded-md">1</button> {/* Active page */}
-                    <button className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200">2</button>
-                     <button className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200">3</button>
-                    <button className="px-3 py-1 border border-gray-300 rounded-md hover:bg-gray-200">Next</button>
-               </div>
-           </div>
-
+          {/* Right Column: Tabs for About and Settings */}
+          <Card className="md:col-span-2 lg:col-span-3 p-4">
+             {/* Tabs - Added subtle hover to inactive triggers and explicit active styling */}
+             <Tabs defaultValue="about">
+                <TabsList className="grid w-full grid-cols-2">
+                    {/* About Tab Trigger - Explicit active blue background and white text */}
+                    <TabsTrigger
+                        value="about"
+                        className="data-[state=inactive]:hover:bg-blue-100 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
+                    >
+                        About
+                    </TabsTrigger>
+                     {/* Settings Tab Trigger - Explicit active blue background and white text */}
+                    <TabsTrigger
+                        value="settings"
+                        className="data-[state=inactive]:hover:bg-blue-100 data-[state=active]:bg-blue-500 data-[state=active]:text-white"
+                    >
+                        Settings
+                    </TabsTrigger>
+                </TabsList>
+                {/* About Tab Content (from previous implementation) */}
+                <TabsContent value="about" className="mt-4">
+                    <h3 className="text-md font-semibold mb-4">PERSONAL PROFILE</h3>
+                    <p className="text-sm text-muted-foreground mb-6">
+                        Below is the profile information of the student. All you to need know about the student (address, phone number, parent name etc)
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                        <div className="space-y-4">
+                            <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Full Name:</span>
+                                <span>{studentData.name}</span>
+                            </div>
+                             <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Date of Birth:</span>
+                                <span>{studentData.dob}</span>
+                            </div>
+                            <div className="flex items-center">
+                                 <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Phone number:</span>
+                                <span>{studentData.phoneNumber}</span>
+                            </div>
+                             <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Gender:</span>
+                                <span>{studentData.gender}</span>
+                            </div>
+                        </div>
+                        <div className="space-y-4">
+                             <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Religion:</span>
+                                <span>{studentData.religion}</span>
+                            </div>
+                             <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Password:</span>
+                                <span>{studentData.password}</span> {/* Be cautious with displaying passwords */}
+                            </div>
+                            <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Father&lsquo;s name:</span>
+                                <span>{studentData.fatherName}</span>
+                            </div>
+                             <div className="flex items-center">
+                                <div className="w-2 h-2 rounded-full bg-blue-500 mr-2"></div> {/* Small blue circle */}
+                                <span className="font-semibold w-1/3">Mother&apos;s name:</span>
+                                <span>{studentData.motherName}</span>
+                            </div>
+                        </div>
+                    </div>
+                </TabsContent>
+                {/* Settings Tab Content (NEW) */}
+                <TabsContent value="settings" className="mt-4">
+                    <h3 className="text-md font-semibold mb-4">PERSONAL INFORMATION</h3>
+                     <p className="text-sm text-muted-foreground mb-6">
+                        You can edit the student&lsquo;s information below, kindly be informed that any uteration or modification of the information will replace the previous information.
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                         {/* Row 1: Student's name */}
+                        <div className="md:col-span-2">
+                            <Label htmlFor="name">Student&lsquo;s name</Label>
+                            <Input id="name" value={formData.name} onChange={handleInputChange} />
+                        </div>
+                        {/* Row 2: Date of Birth, Category, Gender */}
+                        <div>
+                            <Label htmlFor="dob">Date of Birth</Label>
+                            <Input id="dob" type="text" placeholder="dd/mm/yyyy" value={formData.dob} onChange={handleInputChange} /> {/* Consider a date picker component */}
+                        </div>
+                        <div>
+                             <Label htmlFor="category">Category</Label>
+                            <Input id="category" value={formData.category} onChange={handleInputChange} />
+                        </div>
+                        <div>
+                            <Label htmlFor="gender">Gender</Label>
+                            <Input id="gender" value={formData.gender} onChange={handleInputChange} />
+                        </div>
+                         {/* Row 3: Mobile No, Religion */}
+                        <div>
+                            <Label htmlFor="phoneNumber">Mobile No</Label>
+                            <Input id="phoneNumber" value={formData.phoneNumber} onChange={handleInputChange} />
+                        </div>
+                        <div>
+                            <Label htmlFor="religion">Religion</Label>
+                            <Input id="religion" value={formData.religion} onChange={handleInputChange} />
+                        </div>
+                        {/* Row 4: Address */}
+                        <div className="md:col-span-2">
+                             <Label htmlFor="address">Address</Label>
+                            <Input id="address" value={formData.address} onChange={handleInputChange} />
+                        </div>
+                        {/* Row 5: Father's name, Mother's name */}
+                        <div>
+                            <Label htmlFor="fatherName">Father&lsquo;s name</Label>
+                            <Input id="fatherName" value={formData.fatherName} onChange={handleInputChange} />
+                        </div>
+                        <div>
+                            <Label htmlFor="motherName">Mother&lsquo;s name</Label>
+                            <Input id="motherName" value={formData.motherName} onChange={handleInputChange} />
+                        </div>
+                         {/* Row 6: Class, Category (appears again in image?), Admission No, Password */}
+                         {/* Note: Category appears twice in the image - I'll include it again but you might want to verify this is correct */}
+                        <div>
+                            <Label htmlFor="class">Class</Label>
+                            <Input id="class" value={formData.class} onChange={handleInputChange} />
+                        </div>
+                         <div>
+                            <Label htmlFor="category2">Category</Label> {/* Renamed id to category2 to avoid conflict */}
+                            <Input id="category2" value={formData.category} onChange={handleInputChange} /> {/* Using the same category value */}
+                        </div>
+                        <div>
+                            <Label htmlFor="admissionNo">Admission No</Label>
+                            <Input id="admissionNo" value={formData.admissionNo} onChange={handleInputChange} readOnly /> {/* Admission No is likely read-only */}
+                        </div>
+                        <div>
+                            <Label htmlFor="password">Password</Label>
+                            <Input id="password" type="password" value={formData.password} onChange={handleInputChange} /> {/* Be cautious with editing passwords here */}
+                        </div>
+                    </div>
+                     {/* Save Button - Added blue background and hover effect */}
+                    <div className="flex justify-end mt-6">
+                        <Button
+                            onClick={handleSave}
+                            className="bg-blue-500 text-white hover:bg-blue-600" // Added custom blue color and hover
+                            variant="default" // Use default variant to allow background color override
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 mr-2">
+                                <path fillRule="evenodd" d="M9 2.25a.75.75 0 01.75.75v9a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM16.5 4.5a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H17.25a.75.75 0 01-.75-.75z" clipRule="evenodd" />
+                                <path d="M6 3a3 3 0 00-3 3v.75a.75.75 0 001.5 0V6a1.5 1.5 0 011.5-1.5h1.5a.75.75 0 000-1.5H6zM3 16.5a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM6 18a3 3 0 00-3 3v.75a.75.75 0 001.5 0V21a1.5 1.5 0 011.5-1.5h1.5a.75.75 0 000-1.5H6zM16.5 16.5a.75.75 0 01.75-.75h3.75a.75.75 0 010 1.5H17.25a.75.75 0 01-.75-.75zM18 18a3 3 0 00-3 3v.75a.75.75 0 001.5 0V21a1.5 1.5 0 011.5-1.5h1.5a.75.75 0 000-1.5H18zM12.75 3a.75.75 0 00-1.5 0v18a.75.75 0 001.5 0V3z" />
+                            </svg>
+                            Save
+                        </Button>
+                    </div>
+                </TabsContent>
+             </Tabs>
+          </Card>
         </div>
       </SidebarInset>
     </SidebarProvider>
   );
 }
+
