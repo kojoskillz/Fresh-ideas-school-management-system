@@ -39,6 +39,17 @@ export default function ResultPage() {
     }))
   );
 
+  type Result = {
+    id: number;
+    name: string;
+    projects: string;
+    note: string;
+    homework: string;
+    ca: string;
+    exam: string;
+    [key: string]: string | number;
+  };
+
   useEffect(() => {
     const storedName = localStorage.getItem("userName");
     if (storedName) {
@@ -48,7 +59,7 @@ export default function ResultPage() {
 
   const handleInputChange = (index: number, field: string, value: string) => {
     const updatedResults = [...results];
-    updatedResults[index][field] = value;
+    (updatedResults[index] as Result)[field] = value;
     setResults(updatedResults);
   };
 
@@ -108,6 +119,7 @@ export default function ResultPage() {
                         <td key={field} className="border px-2 py-1">
                           <input
                             type="text"
+                            placeholder={field}
                             value={(student as any)[field]}
                             onChange={(e) => handleInputChange(index, field, e.target.value)}
                             className="w-full border rounded px-1 py-0.5 text-sm"
