@@ -42,72 +42,69 @@ function Page() {
   };
 
   return (
-    <div className="bg-auth min-h-dvh flex items-center justify-center p-4">
-      <div className="w-full max-w-[500px] bg-white shadow-primary/25 shadow-sm px-10 pt-10 pb-16 rounded-md">
-        <h3 className="font-bold text-center mb-8">Welcome!</h3>
+    <div className="min-h-dvh flex items-center justify-center bg-blue-100 px-4 py-8">
+      <div className="w-full max-w-md bg-white border border-gray-200 shadow-xl rounded-2xl p-10">
+        <h1 className="text-3xl font-extrabold text-center text-primary mb-2">
+          Welcome Back
+        </h1>
+        <p className="text-center text-gray-500 mb-8">
+          Sign in to your admin account
+        </p>
 
         <Form {...form}>
-          <FormDescription className="text-primary font-bold text-xl mb-5">
-            Sign in
-          </FormDescription>
-          <form method="POST" onSubmit={form.handleSubmit(handleSubmitHandler)}>
-            <div className="space-y-4 mb-8">
-              <FormField
-                name="email"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-primary font-medium">
-                      Phone number or Email:
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
-                        placeholder="Enter email"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                name="password"
-                control={form.control}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-primary font-medium">
-                      Password:
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        className="border-0 bg-primary-foreground rounded-lg shadow-sm shadow-[#5F5F5F40]"
-                        placeholder="Enter password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <div className="flex justify-center pb-16">
-              <Button
-                onClick={() => console.log(form.getValues())}
-                className="px-12 text-lg"
-                type="submit"
-              >
-                Sign In
-              </Button>
-            </div>
+          <form onSubmit={form.handleSubmit(handleSubmitHandler)} className="space-y-6">
+            <FormField
+              name="email"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-primary">Email or Phone</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      placeholder="you@example.com"
+                      className="bg-gray-50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg px-4 py-2 text-base transition-all"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              name="password"
+              control={form.control}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-sm font-medium text-primary">Password</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      type="password"
+                      placeholder="••••••••"
+                      className="bg-gray-50 border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 rounded-lg px-4 py-2 text-base transition-all"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <Button
+              type="submit"
+              className="w-full py-3 text-lg rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-semibold transition-all"
+            >
+              Sign In
+            </Button>
           </form>
         </Form>
-        <div className="flex justify-center">
-          <p className="text-primary/60 pb-10 font-medium">
+
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-600">
             Don’t have an account?{" "}
             <Link
-              className="hover:text-primary transition-all duration-300 ease-linear"
               href="/auth/sign-up"
+              className="text-blue-600 hover:text-blue-800 font-medium transition"
             >
               Sign up
             </Link>
