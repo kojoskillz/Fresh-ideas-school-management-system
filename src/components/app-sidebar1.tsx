@@ -66,6 +66,11 @@ const data = {
           ],
         },
         {
+          title: "View Previous Results",
+          url: "./view_class_results",
+          icon: <Clock size={16} />,
+        },
+              {
           title: "Results",
           icon: <BarChart size={16} />,
           children: [
@@ -80,11 +85,6 @@ const data = {
               icon: <Eye size={16} />,
             },
           ],
-        },
-        {
-          title: "View Previous Results",
-          url: "./view_class_results",
-          icon: <Clock size={16} />,
         },
         {
           title: "Quick Class Results",
