@@ -198,7 +198,7 @@ export function AppSidebar1({ ...props }: React.ComponentProps<typeof Sidebar>) 
         <img
           src="/img1.png" // Place this image in /public folder or update path
           alt="Student Portal"
-          className="w-32 h-32 object-contain rounded-full"
+          className="w-32 h-32 object-contain bg-indigo-500 rounded-full"
         />
         <p className="text-sm font-semibold mt-2">Student Portal</p>
       </div>
