@@ -25,19 +25,19 @@ const data = {
       items: [
         {
           title: "Dashboard",
-          url: "./dashboard ",
+          url: "./dashboard",
         },
         {
           title: "Profile",
-          url: "./profile ",
+          url: "./profile",
         },
         {
           title: "Subjects",
-          url: "./subjects ",
+          url: "./subject",
         },
         {
           title: "Results",
-          url: "./results ",
+          url: "./results",
         },
         {
           title: "Sign Out",
