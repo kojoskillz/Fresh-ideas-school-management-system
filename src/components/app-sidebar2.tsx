@@ -56,7 +56,7 @@ const data = {
         },
         {
           title: "Sign Out",
-          url: "./",
+          url: "/",
           icon: <LogOut size={18} />,
           isActive: false,
         },
