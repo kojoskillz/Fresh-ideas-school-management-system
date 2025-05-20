@@ -36,16 +36,8 @@ const data = {
           url: "./subjects ",
         },
         {
-          title: "Your Students",
-          url: "./your_students ",
-        },
-        {
-          title: "View Previous Results",
-          url: "./view_previous_results ",
-        },
-        {
-          title: "Quick Class Results",
-          url: "./quick_class_results ",
+          title: "Results",
+          url: "./results ",
         },
         {
           title: "Sign Out",
