@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -5,7 +7,7 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import React from "react"
 
-export default function LoginForm({
+export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
