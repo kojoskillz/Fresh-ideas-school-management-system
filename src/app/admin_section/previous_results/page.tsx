@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import { AppSidebar } from "@/components/layouts/admin/admin-sidebar"
+import AppSidebar from "@/components/layouts/admin/admin-sidebar"
 import {
   Breadcrumb,
   BreadcrumbItem,
