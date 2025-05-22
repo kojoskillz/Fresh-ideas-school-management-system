@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import * as React from "react";
 import Image from "next/image";
@@ -119,7 +119,7 @@ function AdminSidebar({
     },
     {
       title: "Sign Out",
-      url: "/auth/login",
+      url: "/",
       icon: <SignoutDashboardIcon />,
       isActive: false,
     },
