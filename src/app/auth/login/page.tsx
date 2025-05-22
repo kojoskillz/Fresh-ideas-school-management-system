@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Home } from "lucide-react"; // Import the Home icon from Lucide
 
 // --- Zod Schema: Relaxed Validation for Mock Login ---
 // Allows any non-empty string for email and password for easy testing.
@@ -169,6 +170,19 @@ function Page() {
               Sign up
             </Link>
           </p>
+        </div>
+
+        {/* Back to Homepage Button */}
+        <div className="text-center mt-4">
+          <Link href="/" passHref>
+            <Button
+              variant="outline" // Use outline variant for a softer look
+              className="w-full py-2 text-base rounded-lg border-blue-500 text-blue-600 hover:bg-blue-50 hover:text-blue-700 transition-all flex items-center justify-center gap-2"
+            >
+              <Home size={18} /> {/* Lucide Home icon */}
+              Back to Homepage
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
