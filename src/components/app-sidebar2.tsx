@@ -97,6 +97,16 @@ export function AppSidebar2({ ...props }: React.ComponentProps<typeof Sidebar>) 
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+             {/* Student Portal image at the bottom */}
+      <div className="flex flex-col items-center justify-center p-4">
+        <img
+          src="/img1.png" // Place this image in /public folder or update path
+          alt="Student Portal"
+          className="w-32 h-32 mt-16 object-contain bg-indigo-500 rounded-full"
+        />
+        <p className="text-sm font-semibold mt-2">Student Portal</p>
+      </div>
+
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
