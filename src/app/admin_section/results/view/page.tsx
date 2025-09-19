@@ -26,14 +26,7 @@ export default function ViewResult() {
   return (
     <AdminLayout
       page="View Result"
-      header={
-        <div className="flex items-center justify-between">
-          <span>Result sheet</span>{" "}
-          <Button variant="ghost">
-            <PrintIcon />
-          </Button>
-        </div>
-      }
+      
     >
       <div className="px-4 mt-5 overflow-x-auto w-full pb-5">
         <div className="lg:text-xl font-normal text-primary pb-2">

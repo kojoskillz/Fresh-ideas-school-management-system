@@ -40,7 +40,7 @@ export default function Page() {
   };
 
   return (
-    <AdminLayout showSearch page="Teachers" header="Teachers List">
+    <AdminLayout showSearch page="Teachers">
       <div className="px-4 mt-5">
         <div className="flex gap-1 items-center mb-4">
           <div className="flex items-center bg-[#E3E3E363]">

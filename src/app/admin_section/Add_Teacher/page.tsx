@@ -71,7 +71,7 @@ export default function Page() {
   const initials = getInitial(formData?.name);
 
   return (
-    <AdminLayout page="Add Teacher" header="Teacher's profile">
+    <AdminLayout page="Add Teacher">
       <div className="grid lg:grid-cols-3 gap-4 p-4 items-start ">
         <div className="col-span-1 bg-white pt-10 rounded-md pb-5 px-4">
           <div className="flex  flex-col items-center gap-4">

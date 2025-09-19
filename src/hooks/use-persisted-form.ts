@@ -13,6 +13,9 @@ export function usePersistedForm<T extends Record<string, any>>(
   }
 ): UseFormReturn<T> & { resetPersisted: () => void } {
   const defaultValues = useMemo<DefaultValues<T> | undefined>(() => {
+    if (typeof window === "undefined") {
+      return options.defaultValues;
+    }
     try {
       const raw = localStorage.getItem(storageKey);
       return raw
@@ -30,8 +33,8 @@ export function usePersistedForm<T extends Record<string, any>>(
   });
 
   useEffect(() => {
-    if (!localStorage) return;
-
+    if (typeof window === "undefined") return;
+    
     const subscription = form.watch((values) => {
       try {
         localStorage.setItem(storageKey, JSON.stringify(values));
