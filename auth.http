@@ -1,0 +1,12 @@
+POST  https://pixellium-school-portal.vercel.app/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email" : "super@admin.com",
+    "password": "admin"
+}
+
+###Logout User
+POST  https://pixellium-school-portal.vercel.app/api/v1/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGM3NDhhODk4M2FkYmMzNjY5NzQ2YmIiLCJyb2xlIjoiU1VQRVJfQURNSU4iLCJzdWIiOiI2OGM3NDhhODk4M2FkYmMzNjY5NzQ2YmIiLCJpYXQiOjE3NTc5NjM4MTEsImV4cCI6MTc1Nzk2NDcxMX0.zb2P0th2SJYvspZj04AzN-dQmU4SPh9ZfBaxa8HLrzs

@@ -4,8 +4,8 @@ function CurvedSvg() {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="245"
-      height="100"
+      width="150"
+      height="80"
       viewBox="0 0 245 100"
       fill="none"
     >

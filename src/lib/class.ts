@@ -1,0 +1,15 @@
+export const classes = [
+  { key: "KG_1", name: "Kindergarten 1" },
+  { key: "KG_2", name: "Kindergarten 2" },
+  { key: "BASIC_1", name: "Basic 1" },
+  { key: "BASIC_2", name: "Basic 2" },
+  { key: "BASIC_3", name: "Basic 3" },
+  { key: "BASIC_4", name: "Basic 4" },
+  { key: "BASIC_5", name: "Basic 5" },
+  { key: "JSS_1", name: "Junior Secondary School 1" },
+  { key: "JSS_2", name: "Junior Secondary School 2" },
+  { key: "JSS_3", name: "Junior Secondary School 3" },
+  { key: "SSS_1", name: "Senior Secondary School 1" },
+  { key: "SSS_2", name: "Senior Secondary School 2" },
+  { key: "SSS_3", name: "Senior Secondary School 3" },
+];
