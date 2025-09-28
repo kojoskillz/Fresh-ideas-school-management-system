@@ -18,7 +18,7 @@ import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import { Tabs, TabsList, TabsContent, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { Save } from "lucide-react";
+import { Save, UploadCloud } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -26,16 +26,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/hooks/use-auth";
 
 export default function Page() {
   const form = useForm();
+  const { user } = useAuth();
+
+  console.log(user);
 
   return (
     <AdminLayout page="Profile">
       <div className="p-5">
         <div className="grid md:grid-cols-3 gap-5 items-start">
           {/* container1 */}
-          <div className=" rounded-md bg-white flex flex-col items-center py-10">
+          <div className=" rounded-md bg-white flex flex-col items-center py-10 h-full">
             <Avatar className="w-20 h-20">
               <AvatarImage src={""} sizes="lg" />
               <AvatarFallback>UC</AvatarFallback>
@@ -58,27 +62,25 @@ export default function Page() {
                     </FormItem>
                   )}
                 />
-                <Button
-                  type="submit"
-                  className="bg-[#E11B71] text-white px-10 font-medium"
-                >
+                <Button type="submit" variant="flat" size="lg">
+                  <UploadCloud />
                   Upload
                 </Button>
               </form>
             </Form>
 
             <div className="mt-6 px-4 w-full">
-              <h1 className="text-center font-semibold">MISS JANE FRANCIS</h1>
+              <h1 className="text-center font-semibold">{user?.name}</h1>
 
               <ol className="mt-5 space-y-4 text-sm">
                 <li className="flex gap-2">
-                  <span className="font-semibold">Admission number:</span>
+                  <span className="font-semibold">Religion:</span>
                   <span className="text-primary/55">0000</span>
                 </li>
 
                 <li className="flex gap-2">
-                  <span className="font-semibold">Class:</span>
-                  <span className="text-primary/55">basic 3</span>
+                  <span className="font-semibold">Position:</span>
+                  <span className="text-primary/55">Junior sectional head</span>
                 </li>
 
                 <li className="flex gap-2">
@@ -99,7 +101,7 @@ export default function Page() {
           </div>
 
           {/* container2 */}
-          <div className="rounded-md bg-white md:col-span-2 p-4">
+          <div className="rounded-md bg-white md:col-span-2 p-4 h-full">
             <Tabs defaultValue="about" className="w-full">
               <TabsList className=" gap-4 w-full grid-cols-2 bg-transparent">
                 <TabsTrigger
@@ -118,7 +120,7 @@ export default function Page() {
               <TabsContent value="about">
                 <div>
                   <div className="mt-5">
-                    <h3 className="pl-10 mb-8">Personal Profile</h3>
+                    <h3 className="mb-5">Personal Profile</h3>
                     <p className="text-sm">
                       Below is the personal profile of information of the
                       student.All you need to know about the students
@@ -126,14 +128,14 @@ export default function Page() {
                     </p>
                   </div>
                   {/* details of students */}
-                  <div className="grid md:grid-cols-2 mt-7 relative text-sm lg:text-base">
+                  <div className="grid md:grid-cols-2 mt-7 gap-4 relative text-sm lg:text-base">
                     <ol className="space-y-4 relative">
                       <div className="hidden md:block bg-primary/30 absolute top-2 left-1.5 bottom-5 w-[1px]" />
                       <li className="flex gap-4">
                         <div className="w-3 h-3 translate-y-1 bg-[#6C75F0] rounded-full z-10" />
                         <div>
                           <p className="font-semibold text-sm">Fullname:</p>
-                          <p className="font-bold">MISS JANE FRANCIS</p>
+                          <p className="font-bold">{user?.name}</p>
                         </div>
                       </li>
 
@@ -141,7 +143,9 @@ export default function Page() {
                         <div className="w-3 h-3 translate-y-1 bg-[#6C75F0] rounded-full z-10"></div>
                         <div>
                           <p className="font-semibold">Date of Birth:</p>
-                          <p className="text-primary/55">01-03-1990</p>
+                          <p className="text-primary/55">
+                            {user?.date_of_birth}
+                          </p>
                         </div>
                       </li>
 
@@ -181,7 +185,7 @@ export default function Page() {
                       <li className="flex gap-4">
                         <div className="w-3 h-3 translate-y-1 bg-[#6C75F0] rounded-full z-10" />
                         <div>
-                          <p className="font-semibold">Fathers name:</p>
+                          <p className="font-semibold">Next of kin:</p>
                           <p className="text-primary/55">Marvelous Becker</p>
                         </div>
                       </li>
@@ -189,7 +193,9 @@ export default function Page() {
                       <li className="flex gap-4">
                         <div className="w-3 h-3 translate-y-1 bg-[#6C75F0] rounded-full z-10" />
                         <div>
-                          <p className="font-semibold">Mothers name:</p>
+                          <p className="font-semibold">
+                            Next of kin phone number:
+                          </p>
                           <p className="text-primary/55">Marvelous Becker</p>
                         </div>
                       </li>
@@ -202,7 +208,7 @@ export default function Page() {
                 <Form {...form}>
                   <FormDescription>
                     <div className="mt-5">
-                      <h3 className="pl-10 mb-8">Personal Profile</h3>
+                      <h3 className="mb-8">Personal Profile</h3>
                       <p className="text-sm">
                         Below is the personal profile of information of the
                         student.All you need to know about the students
@@ -210,33 +216,33 @@ export default function Page() {
                       </p>
                     </div>
                   </FormDescription>
-                  <form className="space-y-8 mt-5">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-primary/70">
-                            Teacher&apos;s name
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="text"
-                              className="border-0 bg-primary-foreground rounded-sm"
-                              placeholder="Enter name"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                  <form className="mt-5">
+                    <div className="grid grid-cols-2 gap-4 mb-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem className="col-span-2">
+                            <FormLabel className="text-primary/70">
+                              Teacher&apos;s name
+                            </FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="text"
+                                className="border-0 bg-primary-foreground rounded-sm"
+                                placeholder="Enter name"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
 
-                    <div className="flex justify-between">
                       <FormField
                         control={form.control}
                         name="date_of_birth"
                         render={({ field }) => (
-                          <FormItem className="w-full lg:max-w-[200px]">
+                          <FormItem className="w-full">
                             <FormLabel className="text-primary/70">
                               Date of Birth
                             </FormLabel>
@@ -261,7 +267,7 @@ export default function Page() {
                             </FormLabel>
                             <FormControl>
                               <Select {...field}>
-                                <SelectTrigger className="w-[180px] border-0 bg-primary-foreground rounded-sm">
+                                <SelectTrigger className="w-full border-0 bg-primary-foreground rounded-sm">
                                   <SelectValue placeholder="Select gender" />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -273,22 +279,21 @@ export default function Page() {
                           </FormItem>
                         )}
                       />
-                    </div>
-                    <div className="flex gap-6">
+
                       <FormField
                         control={form.control}
-                        name="mobile_number"
+                        name="phone_number"
                         render={({ field }) => (
                           <FormItem className="w-full">
                             <FormLabel className="text-primary/70">
-                              Mobile No
+                              Phone No
                             </FormLabel>
                             <FormControl>
                               <Input
                                 {...field}
                                 type="text"
                                 className="border-0 bg-primary-foreground rounded-sm"
-                                placeholder="Enter mobile number"
+                                placeholder="Enter phone number"
                               />
                             </FormControl>
                           </FormItem>
@@ -318,46 +323,26 @@ export default function Page() {
                           </FormItem>
                         )}
                       />
-                    </div>
-                    <FormField
-                      control={form.control}
-                      name="phone_number"
-                      render={({ field }) => (
-                        <FormItem className="w-full md:max-w-[50%] md:pr-2">
-                          <FormLabel className="text-primary/70">
-                            Phone No
-                          </FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="text"
-                              className="border-0 bg-primary-foreground rounded-sm"
-                              placeholder="Enter phone number"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="address"
-                      render={({ field }) => (
-                        <FormItem className="w-full md:pr-2">
-                          <FormLabel className="text-primary/70">
-                            Address
-                          </FormLabel>
-                          <FormControl>
-                            <Textarea
-                              {...field}
-                              className="border-0 bg-primary-foreground rounded-sm resize-none"
-                              placeholder="Enter address"
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
 
-                    <div className="flex gap-6">
+                      <FormField
+                        control={form.control}
+                        name="address"
+                        render={({ field }) => (
+                          <FormItem className="w-full col-span-2">
+                            <FormLabel className="text-primary/70">
+                              Address
+                            </FormLabel>
+                            <FormControl>
+                              <Textarea
+                                {...field}
+                                className="border-0 bg-primary-foreground rounded-sm resize-none"
+                                placeholder="Enter address"
+                              />
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+
                       <FormField
                         control={form.control}
                         name="next_of_kin"
@@ -396,15 +381,14 @@ export default function Page() {
                           </FormItem>
                         )}
                       />
-                    </div>
-                    <div className="flex gap-6">
+
                       <FormField
                         control={form.control}
                         name="class"
                         render={({ field }) => (
                           <FormItem className="w-full">
                             <FormLabel className="text-primary/70">
-                              Class
+                              Position
                             </FormLabel>
                             <FormControl>
                               <Input

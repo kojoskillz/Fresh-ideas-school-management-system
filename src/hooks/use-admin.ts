@@ -3,7 +3,6 @@ import { apis } from "@/lib/api";
 import { StudentFormValues } from "@/lib/schemas/studentSchema";
 import { TeacherFormValues } from "@/lib/schemas/teacherSchema";
 import { handleApiError } from "@/lib/utils";
-import { lime } from "@mui/material/colors";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { toast } from "sonner";
@@ -73,10 +72,11 @@ export function useGetAllTeachers(query: {
   });
 }
 
-export function useGetAllStudents(query: {
+export function useGetAllStudents(query?: {
   page: number;
   limit: number;
-  search: string;
+  search?: string;
+  class_name?: string;
 }) {
   return useQuery({
     queryKey: ["admin-all-students", query],

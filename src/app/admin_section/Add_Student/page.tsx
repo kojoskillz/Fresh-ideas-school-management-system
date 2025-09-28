@@ -68,7 +68,6 @@ export default function Page() {
 
   const initials = getInitial(formData?.name);
 
-
   return (
     <AdminLayout page="Add Student">
       <div className="grid grid-cols-3 gap-4 p-4 items-start ">
@@ -96,6 +95,7 @@ export default function Page() {
             </Avatar>
             <Form {...uploadForm}>
               <form
+                method="POST"
                 onSubmit={uploadForm.handleSubmit(handleUploadForm)}
                 className="flex flex-col items-center gap-4"
               >

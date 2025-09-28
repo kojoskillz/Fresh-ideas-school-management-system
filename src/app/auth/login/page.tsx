@@ -22,6 +22,7 @@ import Image from "next/image";
 function Page() {
   const { loginMutation } = useAuth();
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -49,6 +50,7 @@ function Page() {
           <form
             onSubmit={form.handleSubmit(handleSubmitHandler)}
             className="space-y-6"
+            method="POST"
           >
             <FormField
               name="email"

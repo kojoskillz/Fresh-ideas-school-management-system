@@ -145,10 +145,8 @@ function AdminSidebar({
     return (
       <button
         className={cn(
-          "text-sm px-6 py-2 rounded-md w-full text-left transition-colors flex items-center gap-4 cursor-pointer font-semibold",
-          isActive
-            ? "text-secondary font-semibold"
-            : "hover:bg-muted text-muted-foreground",
+          "text-sm px-6 py-2 rounded-md w-full text-left transition-colors flex items-center gap-4 cursor-pointer ",
+          isActive ? "text-secondary" : "hover:bg-muted text-muted-foreground",
           className
         )}
         {...props}

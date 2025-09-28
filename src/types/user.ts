@@ -8,4 +8,5 @@ export type User = {
   role: UserRole;
   name: string;
   email: string;
+  date_of_birth: string;
 };
