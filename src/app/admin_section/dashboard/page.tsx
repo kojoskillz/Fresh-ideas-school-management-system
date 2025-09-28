@@ -7,7 +7,7 @@ import CurvedSvg from "@/components/svgs/CurvedSvg";
 
 export default function Page() {
   return (
-    <AdminLayout page="Admin">
+    <AdminLayout page="Dashboard">
       <div className="flex bg-primary-foreground flex-col gap-4 p-4 h-full">
         <div className="bg-[#A926C7] p-5 md:p-10 flex flex-col sm:flex-row justify-between gap-6 rounded-xl">
           <div className="">
@@ -19,14 +19,15 @@ export default function Page() {
             </span>
           </div>
           <div className="flex flex-col items-center">
-            <div className="">
+            <div className="max-w-[150px]">
               <CurvedSvg />
             </div>
-            <div className="">
+            <div className="relative w-full max-w-[130px] h-[100px]">
               <Image
                 src="/img4.png"
-                width={200}
-                height={200}
+                // width={200}
+                // height={200}
+                layout="fill"
                 alt=""
                 className="object-contain"
               />

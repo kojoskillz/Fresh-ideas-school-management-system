@@ -11,7 +11,7 @@ function Page() {
   const form = useForm();
 
   return (
-    <AdminLayout page="Add Subject" header="Add subject">
+    <AdminLayout page="Add Subject">
       <div className="p-4">
         <div className="bg-white pt-10 rounded-md">
           <div className="text-center flex justify-center mb-8">

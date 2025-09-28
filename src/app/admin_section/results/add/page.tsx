@@ -58,7 +58,7 @@ export default function Page() {
   };
 
   return (
-    <AdminLayout page="Add Result" header="Add Result">
+    <AdminLayout page="Add Result" >
       <div className="px-4 mt-5 overflow-x-auto w-full pb-5">
         <div className="p-1 bg-white rounded-md">
           <div>

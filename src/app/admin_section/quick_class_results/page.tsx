@@ -469,7 +469,7 @@ const initialRows = [
 
 export default function Page() {
   return (
-    <AdminLayout page="Quick Class Results" header="Quick Class Results">
+    <AdminLayout page="Quick Class Results">
       <div className="px-4 mt-5 overflow-x-auto w-full pb-5">
         <div className="p-1 bg-white rounded-md">
           <div>
