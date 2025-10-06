@@ -2,7 +2,7 @@ import { User } from "./user";
 
 export type TeacherProfile = {
   _id: string;
-  user: User;
+  user: Partial<User>;
   assigned_class: {
     name: string;
   };

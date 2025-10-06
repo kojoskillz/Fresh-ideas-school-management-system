@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { jwtVerify, decodeJwt } from "jose";
+import { jwtVerify } from "jose";
 
 const secret = new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET);
 
@@ -15,8 +15,11 @@ export async function middleware(req: NextRequest) {
 
   if (protectedRoutes.some((path) => req.nextUrl.pathname.startsWith(path))) {
     if (!token) return redirectTo("/auth/login", req);
-    const { role } = decodeJwt(token);
-    console.log(role);
+
+    const { payload } = await jwtVerify(token, secret);
+
+    const role = payload.role;
+
     try {
       if (
         pathname.startsWith("/admin_section") &&
@@ -40,9 +43,9 @@ export async function middleware(req: NextRequest) {
   }
 
   if (pathname.startsWith("/auth/login") && token) {
-    const { role } = decodeJwt(token);
+    const { payload } = await jwtVerify(token, secret);
+    const role = payload.role;
 
-    console.log(role);
     try {
       switch (role) {
         case "SUPER_ADMIN":

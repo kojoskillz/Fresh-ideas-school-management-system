@@ -1,13 +1,8 @@
 "use client";
 
-import React from "react";
-
-import { Form, FormControl, FormItem, FormField } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Search } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { useAuth } from "@/hooks/use-auth";
@@ -19,14 +14,16 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { useDebounce } from "@/hooks/use-debounce";
 
 interface AdminHeaderProps {
   header?: string | React.ReactNode;
-  showSearch: boolean;
 }
-function AdminHeader({ header, showSearch }: AdminHeaderProps) {
-  const form = useForm();
+function AdminHeader({ header }: AdminHeaderProps) {
   const { user } = useAuth();
+  const { setSearch, search, showSearch } = useAuth();
+  const [searchValue, setSearchValue] = useState(search);
+  const debouncedSearch = useDebounce(searchValue, 500);
 
   const displayName = user?.name ?? "";
 
@@ -34,6 +31,10 @@ function AdminHeader({ header, showSearch }: AdminHeaderProps) {
     displayName.split(" ").length > 1
       ? displayName.split(" ")[0][0] + displayName.split(" ")[1][0]
       : displayName.slice(0, 2);
+
+  useEffect(() => {
+    setSearch(debouncedSearch);
+  }, [debouncedSearch]);
 
   return (
     <header className="py-2 px-4 w-full">
@@ -44,35 +45,17 @@ function AdminHeader({ header, showSearch }: AdminHeaderProps) {
             <Separator orientation="vertical" className="bg-gray-400" />
           </div>
           {showSearch ? (
-            <Form {...form}>
-              <form className="flex flex-col items-center gap-4">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem className="relative">
-                      <FormControl>
-                        {/* <div className="relative"> */}
-                        <Input
-                          className="bg-white rounded-none"
-                          {...field}
-                          placeholder="Search..."
-                        />
-
-                        {/* </div> */}
-                      </FormControl>
-                      <Button
-                        type="submit"
-                        className="absolute right-0 top-0"
-                        variant="ghost"
-                      >
-                        <Search />
-                      </Button>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
+            <form className="flex flex-col items-center gap-4">
+              <Input
+                aria-label=" Search classes, students, teachers..."
+                name="search"
+                value={searchValue}
+                onChange={(event) => setSearchValue(event.target.value)}
+                type="text"
+                className="bg-white rounded-none"
+                placeholder="Search..."
+              />
+            </form>
           ) : (
             <Breadcrumb>
               <BreadcrumbList>

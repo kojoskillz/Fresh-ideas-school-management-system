@@ -27,7 +27,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { TeacherFormValues, teacherSchema } from "@/lib/schemas/teacherSchema";
 import { usePersistedForm } from "@/hooks/use-persisted-form";
-import { classes } from "@/lib/class";
+import { classes } from "@/lib/school_classes";
 import { useAddTeacher } from "@/hooks/use-admin";
 import { useUploadImage } from "@/hooks/use-user";
 import { UploadFormValues, uploadImageSchema } from "@/lib/schemas/userSchema";
@@ -46,7 +46,7 @@ export default function Page() {
       phone: "",
       next_of_kin: "",
       next_of_kin_phone: "",
-      assigned_class: "",
+      class_key: "",
       religion: undefined,
       photo: "",
     },
@@ -397,7 +397,7 @@ export default function Page() {
 
                   <FormField
                     control={form.control}
-                    name="assigned_class"
+                    name="class_key"
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormLabel className="text-primary/70">Class</FormLabel>

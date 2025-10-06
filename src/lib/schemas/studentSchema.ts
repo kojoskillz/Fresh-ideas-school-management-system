@@ -11,7 +11,7 @@ export const studentSchema = z.object({
     message: "Invalid phone number",
   }),
   password: z.string().min(8),
-  class: z.string(),
+  class_key: z.string(),
   date_of_birth: z.string(),
   gender: genderEnum,
   address: z.string(),

@@ -11,7 +11,7 @@ export const teacherSchema = z.object({
     message: "Invalid phone number",
   }),
   password: z.string().min(8, "Password should be minimum of 8 characters"),
-  assigned_class: z.string().nonempty("assign class to teacher"),
+  class_key: z.string().nonempty("assign class to teacher"),
   date_of_birth: z.string(),
   gender: genderEnum,
   address: z.string().min(10, "Enter a valid address"),

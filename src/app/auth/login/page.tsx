@@ -100,7 +100,7 @@ function Page() {
                       </Button>
                     </div>
                   </FormControl>
-                  <div className="flex items-center justify-between ml-auto">
+                  <div className="flex items-center justify-between">
                     <FormMessage />
                     <div className="text-sm text-primary text-right">
                       <Link className="" href="/auth/forgot-password">

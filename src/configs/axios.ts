@@ -70,7 +70,7 @@ customAxios.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        const resp = await customAxios.post(`/auth/refresh`, {
+        const resp = await customAxios.post(`/auth/refresh-token`, {
           refresh_token: refreshToken,
         });
 

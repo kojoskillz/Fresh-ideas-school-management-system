@@ -12,6 +12,7 @@ export function usePersistedForm<T extends Record<string, any>>(
     defaultValues: DefaultValues<T>;
   }
 ): UseFormReturn<T> & { resetPersisted: () => void } {
+  
   const defaultValues = useMemo<DefaultValues<T> | undefined>(() => {
     if (typeof window === "undefined") {
       return options.defaultValues;

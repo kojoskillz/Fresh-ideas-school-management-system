@@ -19,6 +19,10 @@ interface State {
   isAuthenticated: boolean;
   setState: Dispatch<SetStateAction<State>>;
   isLoading: boolean;
+  showSearch: boolean;
+  setShowSearch: Dispatch<SetStateAction<boolean>>;
+  search: string;
+  setSearch: Dispatch<SetStateAction<string>>;
 }
 
 export const AuthContext = createContext<State | null>(null);
@@ -28,12 +32,17 @@ const defaultValue: State = {
   setState: () => {},
   isAuthenticated: false,
   isLoading: false,
+  showSearch: false,
+  setShowSearch: () => {},
+  search: "",
+  setSearch: () => {},
 };
 
 function AuthContextProvider({ children }: { children: ReactNode }) {
   const [state, setState] = useState<State>(defaultValue);
+  const [showSearch, setShowSearch] = useState(false);
+  const [search, setSearch] = useState("");
   const token = getCookie("access_token");
-
   const { data, isSuccess } = useQuery({
     queryKey: ["Authenticated User"],
     queryFn: async () => (await axios.get(apis.auth.user)).data,
@@ -47,7 +56,16 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   }, [isSuccess, data]);
 
   return (
-    <AuthContext.Provider value={{ ...state, setState }}>
+    <AuthContext.Provider
+      value={{
+        ...state,
+        setState,
+        showSearch,
+        setShowSearch,
+        search,
+        setSearch,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -30,7 +30,7 @@ import { UploadFormValues, uploadImageSchema } from "@/lib/schemas/userSchema";
 import { useUploadImage } from "@/hooks/use-user";
 import { useAddStudent } from "@/hooks/use-admin";
 import { getInitial } from "@/lib/utils";
-import { classes } from "@/lib/class";
+import { classes } from "@/lib/school_classes";
 
 export default function Page() {
   const form = usePersistedForm("admin-student-form", {
@@ -67,6 +67,8 @@ export default function Page() {
     uploadMutation.mutate(formValue);
 
   const initials = getInitial(formData?.name);
+
+  console.log(form.formState.errors)
 
   return (
     <AdminLayout page="Add Student">
@@ -430,7 +432,7 @@ export default function Page() {
 
                   <FormField
                     control={form.control}
-                    name="class"
+                    name="class_key"
                     render={({ field }) => (
                       <FormItem className="w-full">
                         <FormLabel className="text-primary/70">Class</FormLabel>

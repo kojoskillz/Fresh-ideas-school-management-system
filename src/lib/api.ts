@@ -12,5 +12,10 @@ export const apis = {
     add_student: "/admin/add-student",
     all_teachers: "/admin/teachers",
     all_students: "/admin/students",
+    add_results: "/admin/add-result",
+    student_result: "admin/student-results",
+    subjects: "/admin/subjects",
+    add_result_comment: "/admin/add-comment",
+    quick_results: "/admin/students-quick-results",
   },
 };

@@ -2,8 +2,10 @@ import { User } from "./user";
 
 export type StudentProfile = {
   _id: string;
-  user: User;
+  user: Partial<User>;
   class: {
     name: string;
+    key: string;
   };
+  admission_number: string;
 };

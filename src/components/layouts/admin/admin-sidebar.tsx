@@ -100,15 +100,15 @@ function AdminSidebar({
       icon: <ResultDashboardIcon className="w-5 h-5" />,
       children: [
         {
-          title: "Add Result",
-          url: "/admin_section/results/add",
-          isActive: page === "Add Result",
-          icon: <Dot size={25} />,
-        },
-        {
           title: "View Result",
           url: "/admin_section/results/view",
           isActive: page === "View Result",
+          icon: <Dot size={25} />,
+        },
+        {
+          title: "Add Result",
+          url: "/admin_section/results/add",
+          isActive: page === "Add Result",
           icon: <Dot size={25} />,
         },
       ],

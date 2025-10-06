@@ -7,19 +7,14 @@ import AdminHeader from "./admin-header";
 interface AdminLayoutProps {
   children: React.ReactNode;
   page: string;
-  showSearch?: boolean;
 }
 
-export default function AdminLayout({
-  children,
-  page,
-  showSearch = false,
-}: AdminLayoutProps) {
+export default function AdminLayout({ children, page }: AdminLayoutProps) {
   return (
     <SidebarProvider>
       <AdminSidebar collapsible="offcanvas" page={page} />
       <SidebarInset className="bg-primary-foreground w-full">
-        <AdminHeader header={page} showSearch={showSearch as boolean} />
+        <AdminHeader header={page} />
         <main className="font-inter w-full">{children}</main>
       </SidebarInset>
     </SidebarProvider>
