@@ -76,15 +76,16 @@ customAxios.interceptors.response.use(
 
         customAxios.defaults.headers.common["Authorization"] =
           "Bearer " + resp.data.tokens.access_token;
+
         setCookie("access_token", resp.data.tokens.access_token, {
-          maxAge: 60 * 60 * 24 * 7,
+          maxAge: 60 * 15,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
           path: "/",
         });
 
         setCookie("refresh_token", resp.data.tokens.refresh_token, {
-          maxAge: 60 * 60 * 24 * 7,
+          maxAge: 60 * 60 * 24 * 30,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
           path: "/",

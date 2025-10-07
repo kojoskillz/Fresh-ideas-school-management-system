@@ -1,52 +1,23 @@
 import { NextResponse, type NextRequest } from "next/server";
-import { jwtVerify } from "jose";
+import { jwtDecode } from "jwt-decode";
+import path from "path";
 
-const secret = new TextEncoder().encode(process.env.NEXT_PUBLIC_JWT_SECRET);
+interface DecodedToken {
+  role?: string;
+  exp?: number;
+}
 
 export async function middleware(req: NextRequest) {
-  const token = req.cookies.get("access_token")?.value;
   const { pathname } = req.nextUrl;
 
-  const protectedRoutes = [
-    "/admin_section",
-    "/teacher_section",
-    "/student_section",
-  ];
 
-  if (protectedRoutes.some((path) => req.nextUrl.pathname.startsWith(path))) {
-    if (!token) return redirectTo("/auth/login", req);
+  if (pathname.startsWith("/auth")) {
+    const token = req.cookies.get("access_token")?.value;
 
-    const { payload } = await jwtVerify(token, secret);
+    if (token) {
+      const decoded = jwtDecode<DecodedToken>(token);
+      const role = decoded.role;
 
-    const role = payload.role;
-
-    try {
-      if (
-        pathname.startsWith("/admin_section") &&
-        role !== "ADMIN" &&
-        role !== "SUPER_ADMIN"
-      ) {
-        return redirectTo("/forbidden", req);
-      }
-      if (pathname.startsWith("/teacher_section") && role !== "TEACHER") {
-        return redirectTo("/forbidden", req);
-      }
-      if (pathname.startsWith("/student_section") && role !== "STUDENT") {
-        return redirectTo("/forbidden", req);
-      }
-
-      return NextResponse.next();
-    } catch (error) {
-      console.error("JWT verification failed:", error);
-      return redirectTo("/auth/login", req);
-    }
-  }
-
-  if (pathname.startsWith("/auth/login") && token) {
-    const { payload } = await jwtVerify(token, secret);
-    const role = payload.role;
-
-    try {
       switch (role) {
         case "SUPER_ADMIN":
         case "ADMIN":
@@ -56,14 +27,39 @@ export async function middleware(req: NextRequest) {
         case "STUDENT":
           return redirectTo("/student_section/dashboard", req);
         default:
-          return redirectTo("/", req);
+          break;
       }
-    } catch {
-      return NextResponse.next();
     }
+
+    return NextResponse.next();
   }
 
-  return NextResponse.next();
+
+  const token = req.cookies.get("access_token")?.value;
+  if (!token) return redirectTo("/auth/login", req);
+
+  try {
+    const decoded = jwtDecode<DecodedToken>(token);
+    const role = decoded.role;
+
+    const routeRoles: Record<string, string[]> = {
+      "/admin_section": ["ADMIN", "SUPER_ADMIN"],
+      "/teacher_section": ["TEACHER"],
+      "/student_section": ["STUDENT"],
+    };
+
+    // Role-based access control
+    for (const [path, roles] of Object.entries(routeRoles)) {
+      if (pathname.startsWith(path) && !roles.includes(role || "")) {
+        return redirectTo("/forbidden", req);
+      }
+    }
+
+    // All good
+    return NextResponse.next();
+  } catch (err) {
+    return redirectTo("/auth/login", req);
+  }
 }
 
 function redirectTo(path: string, req: NextRequest) {
