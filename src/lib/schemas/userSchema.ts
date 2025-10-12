@@ -9,7 +9,21 @@ export const userSchema = z.object({
     message: "Invalid phone number",
   }),
   password: z.string().min(8, "Enter a solid password"),
-  date_of_birth: z.string(),
+  date_of_birth: z.string().refine(
+    (val) => {
+      const date = new Date(val);
+      const today = new Date();
+      const oneYearAgo = new Date(
+        today.getFullYear() - 1,
+        today.getMonth(),
+        today.getDate()
+      );
+
+      return date <= oneYearAgo;
+    },
+    { message: "User must be at least 1 year old" }
+  ),
+
   gender: z
     .nativeEnum(UserGender)
     .refine((val) => !val || Object.values(UserGender).includes(val), {

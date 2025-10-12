@@ -5,8 +5,7 @@ import {
   ResultFormValue,
   SubjectFormValues,
 } from "@/lib/schemas/adminSchema";
-import { StudentFormValues } from "@/lib/schemas/studentSchema";
-import { TeacherFormValues } from "@/lib/schemas/teacherSchema";
+import { StudentFormValues, TeacherFormValues } from "@/lib/schemas/userSchema";
 import { handleApiError } from "@/lib/utils";
 import { StudentProfile } from "@/types/student";
 import { QueryType } from "@/types/user";
@@ -111,7 +110,7 @@ export function useAddSubjects<T extends FieldValues = FieldValues>(
     onSuccess: () => {
       form.reset();
       toast.success("Subjects added successfully", {
-        description: "New subjects result was successfully added!",
+        description: "New subjects was successfully added!",
       });
     },
   });

@@ -140,7 +140,7 @@ export default function Page() {
                   ].map((str) => (
                     <TableHead
                       key={str}
-                      className="border-primary/40 border text-center min-w-26"
+                      className="border-primary/40 border text-center min-w-26 capitalize whitespace-break-spaces"
                     >
                       {str}
                     </TableHead>

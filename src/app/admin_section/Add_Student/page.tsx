@@ -9,7 +9,6 @@ import {
   FormField,
   FormItem,
 } from "@/components/ui/form";
-import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
@@ -21,21 +20,21 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader, Save, UploadCloud } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Loader, Save } from "lucide-react";
 import { usePersistedForm } from "@/hooks/use-persisted-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { StudentFormValues, studentSchema } from "@/lib/schemas/userSchema";
-import { UploadFormValues, uploadImageSchema } from "@/lib/schemas/userSchema";
-import { useUploadImage } from "@/hooks/use-user";
 import { useAddStudent } from "@/hooks/use-admin";
-import { getInitial } from "@/lib/utils";
 import { classes } from "@/lib/school_classes";
+import ProfileUploader from "@/components/shared/profileUploader";
+import { UserRole } from "@/types/user";
+import { useEffect } from "react";
 
 export default function Page() {
   const form = usePersistedForm("admin-student-form", {
     resolver: zodResolver(studentSchema),
     defaultValues: {
+      role: UserRole.STUDENT,
       name: "",
       email: "",
       date_of_birth: "",
@@ -47,15 +46,10 @@ export default function Page() {
       father_phone: "",
       mother_phone: "",
       religion: undefined,
+      photo: "",
     },
   });
 
-  const uploadForm = useForm<UploadFormValues>({
-    resolver: zodResolver(uploadImageSchema),
-    defaultValues: { file: undefined },
-  });
-
-  const uploadMutation = useUploadImage(form);
   const addStudentMutation = useAddStudent(form);
 
   const formData = form.watch();
@@ -63,82 +57,16 @@ export default function Page() {
   const handleSubmitHandler = (formValue: StudentFormValues) =>
     addStudentMutation.mutate(formValue);
 
-  const handleUploadForm = (formValue: UploadFormValues) =>
-    uploadMutation.mutate(formValue);
-
-  const initials = getInitial(formData?.name);
+  useEffect(() => {
+    form.setValue("role", UserRole.STUDENT);
+  }, []);
 
   return (
     <AdminLayout page="Add Student">
       <div className="grid grid-cols-3 gap-4 p-4 items-start ">
         <div className="col-span-1 bg-white pt-10 rounded-md pb-5 px-4">
           <div className="flex  flex-col items-center gap-4">
-            <Avatar className="w-[128px] h-[128px]">
-              {uploadMutation.isPending ? (
-                <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-full">
-                  <Loader className="w-6 h-6 animate-spin text-white" />
-                </div>
-              ) : (
-                <>
-                  <AvatarImage
-                    className="w-full h-full"
-                    src={formData?.photo}
-                  />
-                  <AvatarFallback
-                    className="leading-1 flex size-full items-center justify-center  text-[15px] font-medium text-violet11 bg-primary-foreground"
-                    delayMs={600}
-                  >
-                    {initials}
-                  </AvatarFallback>
-                </>
-              )}
-            </Avatar>
-            <Form {...uploadForm}>
-              <form
-                method="POST"
-                onSubmit={uploadForm.handleSubmit(handleUploadForm)}
-                className="flex flex-col items-center gap-4"
-              >
-                <FormField
-                  control={uploadForm.control}
-                  name="file"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          type="file"
-                          className="border-none"
-                          onChange={(e) => field.onChange(e.target.files?.[0])}
-                          onBlur={field.onBlur}
-                          name={field.name}
-                          ref={field.ref}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  variant="flat"
-                  size="lg"
-                  disabled={
-                    uploadMutation.isPending || !uploadForm.formState.isValid
-                  }
-                >
-                  {uploadMutation.isPending ? (
-                    <>
-                      <Loader />
-                      Uploading...
-                    </>
-                  ) : (
-                    <>
-                      <UploadCloud />
-                      Upload
-                    </>
-                  )}
-                </Button>
-              </form>
-            </Form>
+            <ProfileUploader form={form} />
           </div>
           <div className="mt-4">
             <h4 className="text-center font-semibold mb-4">

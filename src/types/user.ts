@@ -31,6 +31,7 @@ export type User = {
   address: string;
   phone: string;
   profile: TeacherProfile | StudentProfile | AdminProfile;
+  img_url: string;
 };
 
 export type QueryType = {

@@ -55,11 +55,14 @@ function Pagination({
 
   if (total_pages === 0) return null;
 
+  const start = (current_page - 1) * (query?.limit ?? 20) + 1;
+  const end = Math.min(current_page * (query?.limit ?? 20), total_items);
+
   return (
     <div className="flex flex-col-reverse items-center gap-4 py-2 justify-between sm:flex-row w-full">
       <div className="flex gap-1 items-center text-primary/70 text-sm">
         <span className="pl-1 text-sm">Showing </span>
-        <span>1 - 8</span>
+        <span>{start} - {end}</span>
         <span>of</span>
         <span>{total_items}</span>
         <span>entries</span>
