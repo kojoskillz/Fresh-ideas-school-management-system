@@ -6,16 +6,18 @@ export const apis = {
   },
   user: {
     upload: "/users/profile-image",
+    edit_profile: "/users/edit",
   },
   admin: {
     add_teacher: "/admin/add-teacher",
     add_student: "/admin/add-student",
+    add_results: "/admin/add-result",
+    add_result_comment: "/admin/add-comment",
+    add_subject: "/admin/add-subject",
     all_teachers: "/admin/teachers",
     all_students: "/admin/students",
-    add_results: "/admin/add-result",
     student_result: "admin/student-results",
     subjects: "/admin/subjects",
-    add_result_comment: "/admin/add-comment",
     quick_results: "/admin/students-quick-results",
   },
 };

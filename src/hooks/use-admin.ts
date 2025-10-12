@@ -3,6 +3,7 @@ import { apis } from "@/lib/api";
 import {
   ResultCommentFormValue,
   ResultFormValue,
+  SubjectFormValues,
 } from "@/lib/schemas/adminSchema";
 import { StudentFormValues } from "@/lib/schemas/studentSchema";
 import { TeacherFormValues } from "@/lib/schemas/teacherSchema";
@@ -92,6 +93,30 @@ export function useAddResult<T extends FieldValues = FieldValues>(
   });
 }
 
+export function useAddSubjects<T extends FieldValues = FieldValues>(
+  form: UseFormReturn<T>
+) {
+  return useMutation({
+    mutationFn: async (formData: SubjectFormValues) => {
+      return (await axios.post(apis.admin.add_subject, formData.subjects)).data
+        .data;
+    },
+
+    onError: (err) =>
+      handleApiError(err, {
+        title: "Error adding subject",
+        description: "An error occured while trying to add subject",
+      }),
+
+    onSuccess: () => {
+      form.reset();
+      toast.success("Subjects added successfully", {
+        description: "New subjects result was successfully added!",
+      });
+    },
+  });
+}
+
 export function useGetAllTeachers(query: Partial<QueryType>) {
   const { page, cls, limit } = query;
   const { search } = useAuth();
@@ -131,9 +156,10 @@ export function useGetAllSubject() {
     },
   });
 }
+
 export function useGetResults(params: Partial<QueryType>) {
   const { term, student, cls, session } = params;
-  console.log({ term, student, cls, session })
+  console.log({ term, student, cls, session });
   return useQuery({
     queryKey: ["all-results", params],
     queryFn: async () => {

@@ -7,4 +7,6 @@ export type TeacherProfile = {
     name: string;
   };
   section: string;
+  next_of_kin: string;
+  next_of_kin_phone: string
 };

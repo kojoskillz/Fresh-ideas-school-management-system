@@ -113,9 +113,9 @@ export default function Page() {
                   <SelectValue defaultValue="first" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="FIRST_TERM">1st</SelectItem>
-                  <SelectItem value="SECOND_TERM">2nd</SelectItem>
-                  <SelectItem value="THIRD_TERM">3rd</SelectItem>
+                  <SelectItem value="FIRST_TERM">First term</SelectItem>
+                  <SelectItem value="SECOND_TERM">Second term</SelectItem>
+                  <SelectItem value="THIRD_TERM">Third term</SelectItem>
                 </SelectContent>
               </Select>
             </div>

@@ -25,7 +25,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Loader, Save, Upload } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { TeacherFormValues, teacherSchema } from "@/lib/schemas/teacherSchema";
+import { TeacherFormValues, teacherSchema } from "@/lib/schemas/userSchema";
 import { usePersistedForm } from "@/hooks/use-persisted-form";
 import { classes } from "@/lib/school_classes";
 import { useAddTeacher } from "@/hooks/use-admin";

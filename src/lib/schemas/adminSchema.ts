@@ -1,4 +1,7 @@
-import { TypeOf, z } from "zod";
+import { z } from "zod";
+import { userSchema } from "./userSchema";
+import { UserRole } from "@/types/user";
+
 export const scoresSchema = z.object({
   project: z
     .number({
@@ -77,6 +80,21 @@ export const resultSchema = z.object({
   ),
 });
 
+export const subjectSchema = z
+  .object({
+    subjects: z.array(z.string().min(1, "Subject name is required")),
+  })
+  .refine(
+    (data) =>
+      new Set(data.subjects.map((s) => s.toLowerCase())).size ===
+      data.subjects.length
+  );
+
+
+
+
 export type ScoreValue = z.infer<typeof scoresSchema>;
 export type ResultFormValue = z.infer<typeof resultSchema>;
 export type ResultCommentFormValue = z.infer<typeof resultCommentSchema>;
+
+export type SubjectFormValues = z.infer<typeof subjectSchema>;

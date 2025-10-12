@@ -45,6 +45,7 @@ import { usePersistedForm } from "@/hooks/use-persisted-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { QueryType } from "@/types/user";
+import { Loader } from "lucide-react";
 
 export default function ViewResult() {
   const [query, setQuery] = useState<Partial<QueryType>>(() => {
@@ -84,7 +85,6 @@ export default function ViewResult() {
     commentMutation.mutate(formData);
   };
 
-  console.log(error, data, studentResult)
 
   useEffect(() => {
     localStorage.setItem("result_query", JSON.stringify(query));
@@ -422,6 +422,9 @@ export default function ViewResult() {
                       className="w-full"
                       disabled={!form.formState.isDirty}
                     >
+                      {commentMutation.isPending && (
+                        <Loader className="animate-spin" />
+                      )}
                       Insert
                     </Button>
                   </form>

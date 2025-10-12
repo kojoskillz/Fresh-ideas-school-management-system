@@ -43,8 +43,8 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   const [showSearch, setShowSearch] = useState(false);
   const [search, setSearch] = useState("");
   const token = getCookie("access_token");
-  
-  const { data, isSuccess } = useQuery({
+
+  const { data, isSuccess, isLoading } = useQuery({
     queryKey: ["Authenticated User"],
     queryFn: async () => (await axios.get(apis.auth.user)).data,
     enabled: !!token,
@@ -52,7 +52,11 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isSuccess && data) {
-      setState((prev) => ({ ...prev, user: data.data, isAuthenticated: true }));
+      setState((prev) => ({
+        ...prev,
+        user: data.data,
+        isAuthenticated: true,
+      }));
     }
   }, [isSuccess, data]);
 
@@ -65,6 +69,7 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
         setShowSearch,
         search,
         setSearch,
+        isLoading,
       }}
     >
       {children}

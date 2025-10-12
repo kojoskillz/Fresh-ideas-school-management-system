@@ -87,8 +87,6 @@ export default function Page() {
     data?.students,
   ]);
 
-  console.log(resultQuery);
-
   const form = useForm<ResultFormValue>({
     resolver: zodResolver(resultSchema),
     defaultValues: resultsValue,

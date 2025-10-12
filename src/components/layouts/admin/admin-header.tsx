@@ -15,6 +15,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { useDebounce } from "@/hooks/use-debounce";
+import { AdminProfile } from "@/types/admin";
 
 interface AdminHeaderProps {
   header?: string | React.ReactNode;
@@ -73,7 +74,9 @@ function AdminHeader({ header }: AdminHeaderProps) {
         <div className="flex items-center gap-3 py-2">
           <div className="">
             <p className="font-bold">{user?.name}</p>
-            <p className="text-xs flex justify-end">Junior sectinal head</p>
+            <p className="text-xs flex justify-end">
+              {(user?.profile as AdminProfile)?.position}
+            </p>
           </div>
 
           <Avatar className="w-[50px] h-[50px]">

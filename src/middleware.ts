@@ -1,6 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { jwtDecode } from "jwt-decode";
-import path from "path";
 
 interface DecodedToken {
   role?: string;
@@ -15,6 +14,7 @@ export async function middleware(req: NextRequest) {
     const token = req.cookies.get("access_token")?.value;
 
     if (token) {
+    
       const decoded = jwtDecode<DecodedToken>(token);
       const role = decoded.role;
 
@@ -48,14 +48,12 @@ export async function middleware(req: NextRequest) {
       "/student_section": ["STUDENT"],
     };
 
-    // Role-based access control
     for (const [path, roles] of Object.entries(routeRoles)) {
       if (pathname.startsWith(path) && !roles.includes(role || "")) {
         return redirectTo("/forbidden", req);
       }
     }
 
-    // All good
     return NextResponse.next();
   } catch (err) {
     return redirectTo("/auth/login", req);

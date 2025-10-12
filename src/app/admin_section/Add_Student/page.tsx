@@ -25,7 +25,7 @@ import { Loader, Save, UploadCloud } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { usePersistedForm } from "@/hooks/use-persisted-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { StudentFormValues, studentSchema } from "@/lib/schemas/studentSchema";
+import { StudentFormValues, studentSchema } from "@/lib/schemas/userSchema";
 import { UploadFormValues, uploadImageSchema } from "@/lib/schemas/userSchema";
 import { useUploadImage } from "@/hooks/use-user";
 import { useAddStudent } from "@/hooks/use-admin";
@@ -67,8 +67,6 @@ export default function Page() {
     uploadMutation.mutate(formValue);
 
   const initials = getInitial(formData?.name);
-
-  console.log(form.formState.errors)
 
   return (
     <AdminLayout page="Add Student">
@@ -483,9 +481,7 @@ export default function Page() {
                 </div>
                 <div className="flex justify-end">
                   <Button
-                    // disabled={
-                    //   !form.formState.isValid || addStudentMutation.isPending
-                    // }
+                    disabled={addStudentMutation.isPending}
                     variant="secondary"
                   >
                     {addStudentMutation.isPending ? (

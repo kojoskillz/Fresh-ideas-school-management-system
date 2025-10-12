@@ -23,14 +23,14 @@ export function useAuth() {
       const { tokens, user } = res.data;
 
       setCookie("access_token", tokens?.access_token, {
-        maxAge: 60 * 15,
+        maxAge: 30 * 24 * 60 * 60,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
       });
 
       setCookie("refresh_token", tokens?.refresh_token, {
-        maxAge: 60 * 60 * 24 * 7,
+        maxAge: 30 * 24 * 60 * 60,
         secure: process.env.NODE_ENV === "production",
         sameSite: "strict",
         path: "/",
@@ -80,7 +80,5 @@ export function useAuth() {
     },
   });
 
-
-
-  return { ...context, loginMutation, logoutMutation};
+  return { ...context, loginMutation, logoutMutation };
 }
