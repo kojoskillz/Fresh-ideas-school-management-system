@@ -2,7 +2,7 @@
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import AdminSidebar from "@/components/layouts/admin/admin-sidebar";
-import AdminHeader from "./admin-header";
+import AdminHeader from "../baseheader";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -12,9 +12,9 @@ interface AdminLayoutProps {
 export default function AdminLayout({ children, page }: AdminLayoutProps) {
   return (
     <SidebarProvider>
-      <AdminSidebar collapsible="offcanvas" page={page} />
+      <AdminSidebar  page={page} />
       <SidebarInset className="bg-primary-foreground w-full">
-        <AdminHeader header={page} />
+        <AdminHeader header={page} section="Admin"/>
         <main className="font-inter w-full">{children}</main>
       </SidebarInset>
     </SidebarProvider>

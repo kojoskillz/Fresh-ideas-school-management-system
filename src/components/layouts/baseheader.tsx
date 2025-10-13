@@ -19,8 +19,9 @@ import { AdminProfile } from "@/types/admin";
 
 interface AdminHeaderProps {
   header?: string | React.ReactNode;
+  section?: string;
 }
-function AdminHeader({ header }: AdminHeaderProps) {
+export default function BaseHeader({ header, section }: AdminHeaderProps) {
   const { user } = useAuth();
   const { setSearch, search, showSearch } = useAuth();
   const [searchValue, setSearchValue] = useState(search);
@@ -61,7 +62,7 @@ function AdminHeader({ header }: AdminHeaderProps) {
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden sm:block">
-                  <BreadcrumbLink href="#">Admin</BreadcrumbLink>
+                  <BreadcrumbLink href="#">{section}</BreadcrumbLink>
                 </BreadcrumbItem>
                 <BreadcrumbSeparator className="hidden md:block" />
                 <BreadcrumbItem>
@@ -94,5 +95,3 @@ function AdminHeader({ header }: AdminHeaderProps) {
     </header>
   );
 }
-
-export default AdminHeader;
