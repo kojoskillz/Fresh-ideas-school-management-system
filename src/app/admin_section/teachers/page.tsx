@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Link } from "lucide-react";
+import { Link, Trash, Pencil } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -18,8 +18,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Edit from "@mui/icons-material/Edit";
-import Delete from "@mui/icons-material/DeleteOutlined";
+// import Edit from "@mui/icons-material/Edit";
+// import Delete from "@mui/icons-material/DeleteOutlined";
 import { useGetAllTeachers } from "@/hooks/use-admin";
 import { useEffect, useState } from "react";
 import { TeacherProfile } from "@/types/teacher";
@@ -27,6 +27,7 @@ import Pagination from "@/components/ui/pagination";
 import { QueryType } from "@/types/user";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/use-auth";
+import DeleteDialog from "@/components/shared/deleteDialog";
 
 export default function Page() {
   const { setShowSearch } = useAuth();
@@ -115,15 +116,21 @@ export default function Page() {
                         </TableCell>
                         <TableCell className="flex justify-center">
                           <Button variant="ghost" className="text-primary/50">
-                            <Edit />
+                            <Pencil className="size-5" />
                           </Button>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="text-primary/50"
-                          >
-                            <Delete />
-                          </Button>
+
+                          <DeleteDialog
+                            id={row.user?._id as string}
+                            triggerComp={
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="text-primary/50"
+                              >
+                                <Trash className="text-red-400 size-5" />
+                              </Button>
+                            }
+                          />
                         </TableCell>
                       </TableRow>
                     );

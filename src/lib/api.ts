@@ -7,6 +7,8 @@ export const apis = {
   user: {
     upload: "/users/profile-image",
     edit_profile: "/users/edit",
+    delete_user: "/users",
+    dashboard: "/users/dashboard",
   },
   admin: {
     add_teacher: "/admin/add-teacher",

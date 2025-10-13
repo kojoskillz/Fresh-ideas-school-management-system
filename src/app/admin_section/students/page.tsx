@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Link } from "lucide-react";
+import { Link, Trash, Pencil } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -18,8 +18,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import Edit from "@mui/icons-material/Edit";
-import Delete from "@mui/icons-material/DeleteOutlined";
 import { useEffect, useState } from "react";
 import { useGetAllStudents } from "@/hooks/use-admin";
 import { StudentProfile } from "@/types/student";
@@ -27,6 +25,7 @@ import Pagination from "@/components/ui/pagination";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAuth } from "@/hooks/use-auth";
 import { QueryType } from "@/types/user";
+import DeleteDialog from "@/components/shared/deleteDialog";
 
 export default function Page() {
   const [studentQuery, setStudentQuery] = useState<Partial<QueryType>>({
@@ -114,15 +113,15 @@ export default function Page() {
                           <TableCell className="border border-primary"></TableCell>
                           <TableCell className="border border-primary">
                             <Button variant="ghost" className="text-primary/50">
-                              <Edit />
+                              <Pencil className="size-5" />
                             </Button>
-                            <Button
-                              variant="ghost"
-                              size="icon"
-                              className="text-primary/50"
-                            >
-                              <Delete />
-                            </Button>
+                            {(console.log(row.user), null)}
+                            <DeleteDialog
+                              id={row.user?._id as string}
+                              triggerComp={
+                                <Trash className="text-red-400 size-5" />
+                              }
+                            />
                           </TableCell>
                         </TableRow>
                       );

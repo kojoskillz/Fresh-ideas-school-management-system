@@ -8,6 +8,7 @@ import {
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import { handleApiError } from "@/lib/utils";
 import { toast } from "sonner";
+import { Dispatch, SetStateAction } from "react";
 
 export function useUploadImage<T extends FieldValues = FieldValues>(
   form?: UseFormReturn<T>
@@ -78,7 +79,35 @@ export function useDashboard() {
   return useQuery({
     queryKey: ["user-dashboard"],
     queryFn: async () => {
-      return (await axios.get("/users/dashboard")).data.data;
+      return (await axios.get(apis.user.dashboard)).data.data;
+    },
+  });
+}
+
+export function useDeleteUser(setOpen: Dispatch<SetStateAction<boolean>>) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id: string) => {
+      return await axios.delete(`${apis.user.delete_user}/${id}`);
+    },
+
+    onSuccess: () => {
+      setOpen(false);
+      toast.success("User deleted", {
+        description: "User deleted successfully",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin-all-teachers"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["admin-all-students"],
+      });
+    },
+    onError: (err) => {
+      handleApiError(err, {
+        title: "delete user error",
+        description: "Error occur while deleting user",
+      });
     },
   });
 }
