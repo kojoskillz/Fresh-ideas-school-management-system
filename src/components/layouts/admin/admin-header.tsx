@@ -82,14 +82,12 @@ function AdminHeader({ header }: AdminHeaderProps) {
           <Avatar className="w-[50px] h-[50px]">
             <AvatarImage className="w-full h-full" src={user?.img_url} />
 
-            {!user?.img_url && (
-              <AvatarFallback
-                className="leading-1 flex size-full items-center justify-center  text-[15px] font-medium text-violet11 bg-white"
-                delayMs={600}
-              >
-                {initials}
-              </AvatarFallback>
-            )}
+            <AvatarFallback
+              className="leading-1 flex size-full items-center justify-center  text-[15px] font-medium text-violet11 bg-white"
+              delayMs={600}
+            >
+              {initials}
+            </AvatarFallback>
           </Avatar>
         </div>
       </div>

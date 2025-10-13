@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "@/configs/axios";
 import { apis } from "@/lib/api";
 import {
@@ -58,7 +58,6 @@ export function useEditProfile() {
       ).data.data;
     },
 
-    
     onSuccess: (resp) => {
       queryClient.invalidateQueries({ queryKey: ["Authenticated User"] });
       console.error(resp);
@@ -71,6 +70,15 @@ export function useEditProfile() {
         title: "Edit profile error",
         description: "Error occur while editing user profile",
       });
+    },
+  });
+}
+
+export function useDashboard() {
+  return useQuery({
+    queryKey: ["user-dashboard"],
+    queryFn: async () => {
+      return (await axios.get("/users/dashboard")).data.data;
     },
   });
 }
