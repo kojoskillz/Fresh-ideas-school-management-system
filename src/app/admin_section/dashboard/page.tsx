@@ -8,12 +8,13 @@ import { useAuth } from "@/hooks/use-auth";
 import { AdminProfile } from "@/types/admin";
 import { useDashboard } from "@/hooks/use-user";
 import { getInitial } from "@/lib/utils";
-import { Skeleton } from "@/components/ui/skeleton";
 import { Loader2 } from "lucide-react";
+import { getCookie, deleteCookie, setCookie } from "cookies-next";
 
 export default function Page() {
   const { user } = useAuth();
   const { data, isLoading } = useDashboard();
+
 
   return (
     <AdminLayout page="Dashboard">
@@ -34,7 +35,8 @@ export default function Page() {
             <div className="relative w-full max-w-[130px] h-[100px]">
               <Image
                 src="/img4.png"
-                fill
+                width={130}
+                height={100}
                 alt="students illustration"
                 className="object-contain"
               />

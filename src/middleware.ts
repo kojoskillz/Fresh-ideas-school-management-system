@@ -3,18 +3,14 @@ import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
   role?: string;
-  exp?: number;
 }
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-
+  const token = req.cookies.get("access_token")?.value;
 
   if (pathname.startsWith("/auth")) {
-    const token = req.cookies.get("access_token")?.value;
-
     if (token) {
-    
       const decoded = jwtDecode<DecodedToken>(token);
       const role = decoded.role;
 
@@ -30,12 +26,9 @@ export async function middleware(req: NextRequest) {
           break;
       }
     }
-
     return NextResponse.next();
   }
 
-
-  const token = req.cookies.get("access_token")?.value;
   if (!token) return redirectTo("/auth/login", req);
 
   try {
@@ -55,7 +48,7 @@ export async function middleware(req: NextRequest) {
     }
 
     return NextResponse.next();
-  } catch (err) {
+  } catch {
     return redirectTo("/auth/login", req);
   }
 }

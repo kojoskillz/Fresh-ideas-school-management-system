@@ -46,6 +46,13 @@ export function useAuth() {
         isAuthenticated: true,
       }));
 
+      const urlParams = new URLSearchParams(window.location.search);
+      const from = urlParams.get("from");
+
+      if (from) {
+        return router.push(from);
+      }
+
       switch (user.role) {
         case "SUPER_ADMIN":
         case "ADMIN":

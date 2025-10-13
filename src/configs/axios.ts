@@ -51,7 +51,7 @@ customAxios.interceptors.response.use(
 
       if (!refreshToken) {
         deleteCookie("access_token");
-        window.location.href = "/auth/login";
+        deleteCookie("refresh_token");
         return Promise.reject(error);
       }
 
@@ -67,37 +67,35 @@ customAxios.interceptors.response.use(
       }
 
       isRefreshing = true;
-
       try {
         const resp = await customAxios.post(`/auth/refresh-token`, {
           refresh_token: refreshToken,
         });
 
         customAxios.defaults.headers.common["Authorization"] =
-          "Bearer " + resp.data.tokens.access_token;
+          "Bearer " + resp.data.data.access_token;
 
-        setCookie("access_token", resp.data.tokens.access_token, {
+        setCookie("access_token", resp.data.data.access_token, {
           maxAge: 60 * 60 * 24 * 30,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
           path: "/",
         });
 
-        setCookie("refresh_token", resp.data.tokens.refresh_token, {
+        setCookie("refresh_token", resp.data.data.refresh_token, {
           maxAge: 60 * 60 * 24 * 30,
           secure: process.env.NODE_ENV === "production",
           sameSite: "strict",
           path: "/",
         });
 
-        processQueue(null, resp.data.tokens.access_token);
+        processQueue(null, resp.data.data.access_token);
 
         return customAxios(originalRequest);
       } catch (refreshError) {
         processQueue(refreshError as AxiosError, null);
         deleteCookie("access_token");
         deleteCookie("refresh_token");
-        window.location.href = "/auth/login";
         return Promise.reject(refreshError);
       }
     }
