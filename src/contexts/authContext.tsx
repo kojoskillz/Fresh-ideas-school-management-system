@@ -44,7 +44,7 @@ function AuthContextProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState("");
   const token = getCookie("access_token");
 
-  const { data, isSuccess, isLoading } = useQuery({
+  const { data, isSuccess, isLoading, error } = useQuery({
     queryKey: ["Authenticated User"],
     queryFn: async () => (await axios.get(apis.auth.user)).data,
     enabled: !!token,

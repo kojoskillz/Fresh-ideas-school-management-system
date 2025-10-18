@@ -9,12 +9,15 @@ function Pagination({
 }: ListMetaType) {
   const handleNext = () => {
     const nextPage =
-      query.page ?? 0 < total_pages ? query.page || 0 + 1 : query.page;
+      (query.page || 0) < (total_pages || 0)
+        ? (query.page || 0) + 1
+        : query.page;
+
     setQuery((prev) => ({ ...prev, page: nextPage }));
   };
 
   const handlePrevious = () => {
-    const prevPage = query.page || 0 > 1 ? query.page || 1 - 1 : query.page;
+    const prevPage = (query.page || 0) > 1 ? (query.page || 1) - 1 : query.page;
     setQuery((prev) => ({ ...prev, page: prevPage }));
   };
 
@@ -62,7 +65,9 @@ function Pagination({
     <div className="flex flex-col-reverse items-center gap-4 py-2 justify-between sm:flex-row w-full">
       <div className="flex gap-1 items-center text-primary/70 text-sm">
         <span className="pl-1 text-sm">Showing </span>
-        <span>{start} - {end}</span>
+        <span>
+          {start} - {end}
+        </span>
         <span>of</span>
         <span>{total_items}</span>
         <span>entries</span>

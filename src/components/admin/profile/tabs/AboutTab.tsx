@@ -2,10 +2,16 @@
 
 import { AdminProfile } from "@/types/admin";
 import { User } from "@/types/user";
-import { Skeleton } from "@mui/material";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-export default function AboutTab({ isLoading, user }: { isLoading: boolean; user: User }) {
+export default function AboutTab({
+  isLoading,
+  user,
+}: {
+  isLoading: boolean;
+  user: User;
+}) {
   return (
     <div>
       <div className="mt-5">

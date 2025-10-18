@@ -5,8 +5,9 @@ export type TeacherProfile = {
   user: Partial<User>;
   assigned_class: {
     name: string;
+    key: string;
   };
   section: string;
   next_of_kin: string;
-  next_of_kin_phone: string
+  next_of_kin_phone: string;
 };

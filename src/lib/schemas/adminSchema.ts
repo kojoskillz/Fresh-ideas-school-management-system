@@ -45,7 +45,7 @@ export const resultCommentSchema = z
     opened_days: z.coerce.number().min(1, "Enter time school opened"),
     present_days: z.coerce.number().min(1, "Enter time presents"),
     term: z.string().nonempty("Select a term..."),
-    class: z.object({
+    cls: z.object({
       key: z.string().nonempty(),
       name: z.string().nonempty(),
     }),

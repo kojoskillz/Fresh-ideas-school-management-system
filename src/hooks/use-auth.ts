@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { handleApiError } from "@/lib/utils";
 import { useRouter } from "next/navigation";
 import { setCookie, deleteCookie } from "cookies-next";
+import { UserRole } from "@/types/user";
 export function useAuth() {
   const context = useContext(AuthContext);
   const router = useRouter();
@@ -16,6 +17,9 @@ export function useAuth() {
     throw new Error("useAuth must be used within an AuthContextProvider");
   }
 
+  /**
+   * LOGIN MUTATION
+   */
   const loginMutation = useMutation({
     mutationFn: async (formValue: LoginFormValues) =>
       await axios.post(apis.auth.login, formValue),
@@ -46,28 +50,27 @@ export function useAuth() {
         isAuthenticated: true,
       }));
 
+      const wasManualLogout = localStorage.getItem("manual_logout") === "true";
+
+      if (wasManualLogout) {
+        localStorage.removeItem("manual_logout");
+      }
+
       const urlParams = new URLSearchParams(window.location.search);
       const from = urlParams.get("from");
 
-      if (from) {
+      if (!wasManualLogout && from && !from.startsWith("/auth")) {
         return router.push(from);
       }
 
-      switch (user.role) {
-        case "SUPER_ADMIN":
-        case "ADMIN":
-          return router.push("/admin_section/dashboard");
-        case "TEACHER":
-          return router.push("/teacher_section/dashboard");
-        case "STUDENT":
-          return router.push("student_section/dashboard");
-        default:
-          throw new Error("Invalid User role");
+      if (user.role === "SUPER_ADMIN") {
+        return router.push(`/admin/dashboard`);
       }
+
+      router.push(`/${user?.role.toLowerCase()}/dashboard`);
     },
 
     onError: (err) => {
-      console.log(err);
       handleApiError(err, {
         title: "Login Error",
         description: "An error occured, try again later",
@@ -75,15 +78,34 @@ export function useAuth() {
     },
   });
 
+  /**
+   * LOGOUT MUTATION
+   */
   const logoutMutation = useMutation({
     mutationFn: async () => await axios.post(apis.auth.logout),
     onSuccess: () => {
-      router.push("/auth/login");
       deleteCookie("access_token");
       deleteCookie("refresh_token");
+
+      localStorage.setItem("manual_logout", "true");
+
+      context?.setState((prev) => ({
+        ...prev,
+        user: undefined,
+        isAuthenticated: false,
+      }));
+
+      router.push("/auth/login");
+
+      toast.info("Logout Successfully", {
+        description: "You have been logged out successfully",
+      });
     },
     onError: (err) => {
-      console.log(err);
+      console.error(err);
+      toast.error("Logout Failed", {
+        description: "Unable to log out. Please try again.",
+      });
     },
   });
 

@@ -11,7 +11,6 @@ export default function ProfileDetails({
   isLoading: boolean;
   user: User;
 }) {
-
   return (
     <div className="px-4 w-full">
       <h1 className="text-center font-semibold">{user?.name}</h1>
@@ -20,7 +19,7 @@ export default function ProfileDetails({
         <li className="flex gap-2">
           <span className="font-semibold">Religion:</span>
           {isLoading ? (
-            <Skeleton />
+            <Skeleton className="h-5 w-32" />
           ) : !isLoading && user?.religion ? (
             <p className="text-primary/55">{user?.religion}</p>
           ) : (
@@ -31,7 +30,7 @@ export default function ProfileDetails({
         <li className="flex gap-2">
           <span className="font-semibold">Position:</span>
           {isLoading ? (
-            <Skeleton />
+            <Skeleton className="h-5 w-32" />
           ) : !isLoading && (user?.profile as AdminProfile)?.position ? (
             <p className="text-primary/55">
               {(user?.profile as AdminProfile)?.position}
@@ -42,14 +41,20 @@ export default function ProfileDetails({
         </li>
 
         <li className="flex gap-2">
-          <span className="font-semibold">Category:</span>
-          <span className="text-primary/55">Day</span>
+          <span className="font-semibold">Date of birth:</span>
+          {isLoading ? (
+            <Skeleton className="h-5 w-32" />
+          ) : !isLoading && user?.date_of_birth ? (
+            <p className="text-primary/55">{user?.date_of_birth}</p>
+          ) : (
+            <span className="text-primary/55">Not provided</span>
+          )}
         </li>
 
         <div className="flex gap-2">
           <span className="font-semibold">Address:</span>
           {isLoading ? (
-            <Skeleton />
+            <Skeleton className="h-5 w-32" />
           ) : !isLoading && user?.address ? (
             <p className="text-primary/55">{user?.address}</p>
           ) : (
