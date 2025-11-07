@@ -17,9 +17,7 @@ export function useAuth() {
     throw new Error("useAuth must be used within an AuthContextProvider");
   }
 
-  /**
-   * LOGIN MUTATION
-   */
+
   const loginMutation = useMutation({
     mutationFn: async (formValue: LoginFormValues) =>
       await axios.post(apis.auth.login, formValue),
@@ -78,9 +76,7 @@ export function useAuth() {
     },
   });
 
-  /**
-   * LOGOUT MUTATION
-   */
+ 
   const logoutMutation = useMutation({
     mutationFn: async () => await axios.post(apis.auth.logout),
     onSuccess: () => {

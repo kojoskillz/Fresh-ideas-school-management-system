@@ -8,4 +8,8 @@ export type StudentProfile = {
     key: string;
   };
   admission_number: string;
+  father: string;
+  mother: string;
+  father_phone: string;
+  mother_phone: string;
 };

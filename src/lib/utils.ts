@@ -48,3 +48,11 @@ export function getInitial(name: string) {
     ? displayName.split(" ")[0][0] + displayName.split(" ")[1][0]
     : displayName.slice(0, 3);
 }
+
+export function formatDate(str?: string) {
+  if (!str) return "";
+
+  const date = new Date(str);
+
+  return date.toLocaleDateString();
+}

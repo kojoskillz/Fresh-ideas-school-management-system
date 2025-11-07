@@ -8,13 +8,13 @@ import { useDashboard } from "@/hooks/use-user";
 import { CircleUser, Eye, Logs } from "lucide-react";
 import Image from "next/image";
 
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 export default function Page() {
   const { user } = useAuth();
   const { data, isLoading } = useDashboard();
 
-  console.log(data);
+  // console.log(data);
 
   const subjectsAssigned = [
     "Subject 1",

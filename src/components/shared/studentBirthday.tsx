@@ -21,17 +21,17 @@ export default function StudentBirthday({
       <div className="space-y-2">
         {isLoading ? (
           <Loader2 className="animate-spin text-primary/55 mx-auto mt-10" />
-        ) : students.length > 0 ? (
-          students.map((student: any) => {
+        ) : students?.length > 0 ? (
+          students?.map((student: any) => {
             return (
-              <div key={student._id} className="flex gap-2 items-center py-1">
+              <div key={student?._id} className="flex gap-2 items-center py-1">
                 <Avatar className="w-12 h-12">
                   <AvatarImage src={student?.img_url} />
                   <AvatarFallback className="text-sm font-semibold bg-primary-foreground">
                     {getInitial(student?.name)}
                   </AvatarFallback>
                 </Avatar>
-                <span className="text-sm text-gray-600">{student.name}</span>
+                <span className="text-sm text-gray-600">{student?.name}</span>
               </div>
             );
           })

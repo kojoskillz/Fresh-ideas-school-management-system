@@ -1,8 +1,6 @@
 "use client";
 
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-// import AdminSidebar from "@/components/layouts/admin/admin-sidebar";
-// import AdminHeader from "./admin-header";
 import TeacherSidebar from "./teacher_sidebar";
 import BaseHeader from "../baseheader";
 

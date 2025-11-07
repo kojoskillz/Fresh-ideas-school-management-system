@@ -134,6 +134,7 @@ export default function ViewResult() {
     }));
   }, [user]);
 
+  
   return (
     <TeacherLayouts page="View Results">
       <div className="px-4 mt-5 overflow-x-auto w-full pb-5">

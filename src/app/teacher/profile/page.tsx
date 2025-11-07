@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import TeacherLayouts from "@/components/layouts/teacher";
 import ProfileUploader from "@/components/shared/profileUploader";
 import { useAuth } from "@/hooks/use-auth";

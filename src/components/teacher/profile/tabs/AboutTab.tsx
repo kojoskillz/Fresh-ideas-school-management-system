@@ -1,9 +1,10 @@
 "use client";
 
-import { AdminProfile } from "@/types/admin";
+
 import { User } from "@/types/user";
 import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
+import { TeacherProfile } from "@/types/teacher";
 
 export default function AboutTab({
   isLoading,
@@ -17,9 +18,8 @@ export default function AboutTab({
       <div className="mt-5">
         <p className="mb-5">Personal Profile</p>
         <p className="text-sm">
-          Below is the personal profile of information of the student.All you
-          need to know about the students (address,phone number,parents name
-          etc)
+          Below is the personal profile of information of the teacher. All you
+          need to know about the teacher (address,phone number,parents name etc)
         </p>
       </div>
 
@@ -104,9 +104,10 @@ export default function AboutTab({
               <p className="font-semibold">Position:</p>
               {isLoading ? (
                 <Skeleton className="h-6 w-32" />
-              ) : !isLoading && (user?.profile as AdminProfile)?.position ? (
+              ) : !isLoading &&
+                (user?.profile as TeacherProfile)?.assigned_class ? (
                 <p className="text-primary/55">
-                  {(user?.profile as AdminProfile)?.position}
+                  {(user?.profile as TeacherProfile)?.assigned_class.name}
                 </p>
               ) : (
                 <span className="text-primary/55">Not provided</span>
@@ -120,9 +121,10 @@ export default function AboutTab({
               <p className="font-semibold">Next of kin:</p>
               {isLoading ? (
                 <Skeleton className="h-6 w-32" />
-              ) : !isLoading && (user?.profile as AdminProfile)?.next_of_kin ? (
+              ) : !isLoading &&
+                (user?.profile as TeacherProfile)?.next_of_kin ? (
                 <p className="text-primary/55">
-                  {(user?.profile as AdminProfile)?.next_of_kin}
+                  {(user?.profile as TeacherProfile)?.next_of_kin}
                 </p>
               ) : (
                 <span className="text-primary/55">Not provided</span>
@@ -138,9 +140,9 @@ export default function AboutTab({
               {isLoading ? (
                 <Skeleton className="h-6 w-32" />
               ) : !isLoading &&
-                (user?.profile as AdminProfile)?.next_of_kin_phone ? (
+                (user?.profile as TeacherProfile)?.next_of_kin_phone ? (
                 <p className="text-primary/55">
-                  {(user?.profile as AdminProfile)?.next_of_kin_phone}
+                  {(user?.profile as TeacherProfile)?.next_of_kin_phone}
                 </p>
               ) : (
                 <span className="text-primary/55">Not provided</span>

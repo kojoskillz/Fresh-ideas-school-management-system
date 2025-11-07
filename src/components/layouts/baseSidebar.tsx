@@ -36,6 +36,7 @@ export type NavItemsType = {
 
 export default function BaseSidebar({
   page,
+  navItems,
   ...props
 }: {
   page?: string;
@@ -51,7 +52,7 @@ export default function BaseSidebar({
   };
 
   const [openSubNav, setOpenSubNav] = React.useState<string | null>(() => {
-    const parentWithActiveChild = props.navItems.find((item) =>
+    const parentWithActiveChild = navItems.find((item) =>
       item.children?.some((child) => child.isActive)
     );
     return parentWithActiveChild?.title ?? null;
@@ -109,7 +110,7 @@ export default function BaseSidebar({
       <SidebarContent className="mt-5">
         <SidebarGroupContent>
           <SidebarMenu>
-            {props.navItems.map((item) => {
+            {navItems.map((item) => {
               const hasChildren = !!item.children?.length;
               const isExpanded =
                 openSubNav === item.title ||

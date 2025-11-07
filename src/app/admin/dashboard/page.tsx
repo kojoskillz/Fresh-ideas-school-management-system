@@ -1,19 +1,20 @@
 "use client";
+
 import Image from "next/image";
 
 import AdminLayout from "../../../components/layouts/admin";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CurvedSvg from "@/components/svgs/CurvedSvg";
 import { useAuth } from "@/hooks/use-auth";
 import { AdminProfile } from "@/types/admin";
 import { useDashboard } from "@/hooks/use-user";
-import { getInitial } from "@/lib/utils";
-import { Loader2 } from "lucide-react";
-import { getCookie, deleteCookie, setCookie } from "cookies-next";
+import StaffBirthday from "@/components/shared/staffBirthday";
+import StudentBirthday from "@/components/shared/studentBirthday";
 
 export default function Page() {
   const { user } = useAuth();
-  const { data, isLoading } = useDashboard();
+  const { data, isLoading} = useDashboard();
+
+  console.log(user)
 
   return (
     <AdminLayout page="Dashboard">
@@ -69,89 +70,14 @@ export default function Page() {
             </div>
           </div>
 
-          <div className=" bg-white aspect-vide rounded-xl h-full p-4">
-            <div className="flex items-center justify-between">
-              <h1 className="mb-4 text-xl text-primary font-semibold">
-                Staff Birthday
-              </h1>
-              <Image
-                src="/img2.png"
-                width={50}
-                height={50}
-                alt="Birthday cake"
-              />
-            </div>
-            <div className="flex">
-              {isLoading ? (
-                <Loader2 className="animate-spin text-primary/55 mx-auto mt-10" />
-              ) : data?.celebrants?.staffs.length > 0 ? (
-                data.celebrants.staffs.map((staff: any) => {
-                  return (
-                    <div
-                      key={staff._id}
-                      className="flex gap-2 items-center py-1"
-                    >
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={staff?.img_url} />
-                        <AvatarFallback className="text-sm font-semibold bg-primary-foreground">
-                          {getInitial(staff?.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm text-gray-600">
-                        {staff.name}
-                      </span>
-                    </div>
-                  );
-                })
-              ) : (
-                <span className="text-gray-600">
-                  No colleague&apos;s birthday today
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className=" bg-white aspect-vide rounded-xl h-full p-4">
-            <div className="flex justify-between items-center">
-              <h1 className="mb-4 text-xl text-primary font-semibold">
-                Students Birthday
-              </h1>
-              <Image
-                src="/img2.png"
-                width={50}
-                height={50}
-                alt="Birthday cake"
-              />
-            </div>
-            <div className="space-y-2">
-              {isLoading ? (
-                <Loader2 className="animate-spin text-primary/55 mx-auto mt-10" />
-              ) : data?.celebrants?.students.length > 0 ? (
-                data.celebrants.students.map((student: any) => {
-                  return (
-                    <div
-                      key={student._id}
-                      className="flex gap-2 items-center py-1"
-                    >
-                      <Avatar className="w-12 h-12">
-                        <AvatarImage src={student?.img_url} />
-                        <AvatarFallback className="text-sm font-semibold bg-primary-foreground">
-                          {getInitial(student?.name)}
-                        </AvatarFallback>
-                      </Avatar>
-                      <span className="text-sm text-gray-600">
-                        {student.name}
-                      </span>
-                    </div>
-                  );
-                })
-              ) : (
-                <span className="text-gray-600">
-                  No student&apos;s birthday today
-                </span>
-              )}
-            </div>
-          </div>
+          <StaffBirthday
+            staffs={data?.celebrants?.staffs}
+            isLoading={isLoading}
+          />
+          <StudentBirthday
+            students={data?.celebrants?.students}
+            isLoading={isLoading}
+          />
         </div>
       </div>
     </AdminLayout>
